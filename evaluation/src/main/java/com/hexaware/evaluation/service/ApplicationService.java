@@ -51,11 +51,7 @@ public class ApplicationService {
                                                                 .map(applicationMapper::entityToDTO)
                                                                 .toList();
 
-        return new ApplicationResDto(
-                applications.getTotalPages(),
-                applications.getTotalElements(),
-                applicationEntityResDTOS
-        );
+        return applicationMapper.entityToDTOPagination(applications,applicationEntityResDTOS);
 
     }
 }

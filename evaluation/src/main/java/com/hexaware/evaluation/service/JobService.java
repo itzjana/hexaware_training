@@ -50,12 +50,9 @@ public class JobService {
         List<JobEntityResDTO> jobEntityResDTOS = jobList.stream()
                                                 .map(jobMapper::entityToDTO).toList();
 
-        return new JobResDTO(
-                jobs.getTotalPages(),
-                jobs.getTotalElements(),
-                jobEntityResDTOS
-        );
+        return jobMapper.entityToDTOPagination(jobs,jobEntityResDTOS);
     }
+
 
     public Job getById(int id) {
         return jobRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No jobs found"));
