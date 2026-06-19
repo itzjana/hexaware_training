@@ -3,12 +3,12 @@ import axios from "axios";
 
 const AddUser = () => {
     //name ,email,phone,compnay name
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [phone, setPhone] = useState()
-    const [company, setCompany] = useState()
-    const [successMsg, setSuccessMsg] = useState()
-    const [errorMsg, setErrorMsg] = useState()
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [company, setCompany] = useState('')
+    const [successMsg, setSuccessMsg] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
 
     const api = 'https://jsonplaceholder.typicode.com/users'
 
