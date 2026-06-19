@@ -10,6 +10,7 @@ const Header = () => {
       <div className="navbar-nav justify-content-end">
         <Link className="nav-link" to="/">User List</Link>
         <Link className="nav-link" to="/add">Add User</Link>
+        <Link className="nav-link" to="/dataList">DataList</Link>
       </div>
     </nav>
   );
