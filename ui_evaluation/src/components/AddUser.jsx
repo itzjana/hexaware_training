@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AddUser = () => {
     //name ,email,phone,compnay name
@@ -70,6 +71,7 @@ const AddUser = () => {
                         <input type="text" className="form-control" value={company} onChange={(e) => setCompany(e.target.value)} />
                     </div>
                     <input type="submit" value={"Add User"} className="btn btn-primary" />
+                    <Link to="/" className="btn btn-danger ms-2" >Cancel</Link>
                 </form>
             </div>
         </div>
