@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Policies | AutoGuard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="store.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#5d5e66",
+                    "surface-container-low": "#f3f3f4",
+                    "on-surface": "#1a1c1d",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "inverse-surface": "#2f3132",
+                    "outline": "#7e7576",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-container": "#e3e1ec",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#4c4546",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-container-high": "#e8e8e9",
+                    "surface-bright": "#f9f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#1b1b1b",
+                    "primary-fixed": "#e2e2e2",
+                    "on-secondary-container": "#63646c",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "surface-variant": "#e2e2e3",
+                    "tertiary-container": "#1b1b1b",
+                    "surface-container": "#eeeeef",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#848484",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "secondary-fixed": "#e3e1ec",
+                    "on-background": "#1a1c1d",
+                    "surface-dim": "#dadadb",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-primary-container": "#848484",
+                    "background": "#f9f9fa",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface": "#f9f9fa"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-width": "1280px",
+                    "gutter": "16px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f9f9fa; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<div id="topnav-container"></div>
+<div id="sidebar-container"></div>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-margin-mobile md:pl-72 md:pr-margin-desktop min-h-screen">
+<div class="max-w-max-width mx-auto">
+<!-- Header Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Policy Inventory</h2>
+<p class="text-body-md text-secondary mt-1">Manage and track your active and historical insurance documents.</p>
+</div>
+<button onclick="location.href='apply_policy.html?action=new'" class="bg-primary text-on-primary px-4 py-3 font-label-md uppercase border border-black hover:opacity-80 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                    New Proposal
+                </button>
+</div>
+
+<!-- Alert banner for pending proposals tracking -->
+<div class="mb-8 p-4 border border-primary bg-surface-container-low flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary">rate_review</span>
+        <div class="text-body-sm font-body-sm">
+            Have pending proposals, generated quotes, or underwriting information requests? 
+            <a href="my_proposals.html" class="font-bold underline text-primary">Track and pay them in the My Proposals portal</a>.
+        </div>
+    </div>
+    <a href="my_proposals.html" class="shrink-0 border border-primary px-3 py-1 font-label-sm uppercase font-bold text-primary hover:bg-primary hover:text-on-primary transition-all">Go to My Proposals</a>
+</div>
+<!-- Dashboard Stats (Low-fi cards) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-white border border-outline-variant p-4">
+<p class="text-label-sm text-secondary uppercase">Active Policies</p>
+<p id="stats-active" class="text-headline-md font-black mt-1">00</p>
+</div>
+<div class="bg-white border border-outline-variant p-4">
+<p class="text-label-sm text-secondary uppercase">Expiring (30d)</p>
+<p id="stats-expiring" class="text-headline-md font-black mt-1 text-error">00</p>
+</div>
+<div class="bg-white border border-outline-variant p-4">
+<p class="text-label-sm text-secondary uppercase">Pending Claims</p>
+<p id="stats-claims" class="text-headline-md font-black mt-1">00</p>
+</div>
+<div class="bg-white border border-outline-variant p-4">
+<p class="text-label-sm text-secondary uppercase">Annual Premium</p>
+<p id="stats-premium" class="text-headline-md font-black mt-1">$0.00</p>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-white border border-outline-variant overflow-hidden">
+<!-- Search/Filter Bar -->
+<div class="p-4 border-b border-outline-variant flex flex-col sm:flex-row gap-4 justify-between bg-surface-container-low">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-outline-variant focus:border-black outline-none font-label-md bg-white" placeholder="SEARCH POLICY ID OR NAME..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="border border-outline-variant bg-white px-4 py-2 font-label-md uppercase flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+Filter
+                        </button>
+<button class="border border-outline-variant bg-white px-4 py-2 font-label-md uppercase flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Responsive Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">Policy ID</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">Category</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">Policy Name</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">Status</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">Start Date</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant">End Date</th>
+<th class="px-6 py-4 text-label-md text-secondary font-bold uppercase border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="policies-tbody">
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-outline-variant flex items-center justify-between bg-surface-container-low">
+<p class="text-body-sm text-secondary italic">Showing 1-4 of 12 policies</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 border border-black bg-black text-white flex items-center justify-center font-label-sm">1</button>
+<button class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-container-high font-label-sm">2</button>
+<button class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-surface-container-high font-label-sm">3</button>
+<button class="w-8 h-8 border border-outline-variant flex items-center justify-center hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-4 md:px-8 mt-auto md:ml-64 border-t border-outline-variant bg-surface-container-low">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col items-center md:items-start">
+<span class="text-label-md font-bold text-primary uppercase tracking-wider">AutoGuard</span>
+<p class="text-body-sm text-secondary mt-1">© 2024 AutoGuard Insurance Systems. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-secondary hover:text-primary underline transition-opacity font-label-sm uppercase" href="#">Privacy Policy</a>
+<a class="text-secondary hover:text-primary transition-opacity font-label-sm uppercase" href="#">Terms of Service</a>
+<a class="text-secondary hover:text-primary transition-opacity font-label-sm uppercase" href="#">Contact Support</a>
+<a class="text-secondary hover:text-primary transition-opacity font-label-sm uppercase" href="#">FAQS</a>
+</div>
+</div>
+</footer>
+<div id="bottomnav-container"></div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation('policies');
+            
+            // Populate dynamically
+            const proposals = getProposals();
+            const claims = getClaims();
+            const vehicles = getVehicles();
+
+            const activePolicies = proposals.filter(p => p.status === 'ACTIVE');
+            const pendingClaims = claims.filter(c => c.status === 'INITIATED' || c.status === 'UNDER_REVIEW');
+            
+            // Expiring in 30 days calculation
+            const expiringCount = activePolicies.filter(p => {
+                if (!p.endDate) return false;
+                const end = new Date(p.endDate);
+                const diffTime = end - new Date();
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays >= 0 && diffDays <= 30;
+            }).length;
+
+            const totalPremium = activePolicies.reduce((sum, p) => sum + (p.premium || 0), 0);
+
+            document.getElementById('stats-active').textContent = String(activePolicies.length).padStart(2, '0');
+            document.getElementById('stats-expiring').textContent = String(expiringCount).padStart(2, '0');
+            document.getElementById('stats-claims').textContent = String(pendingClaims.length).padStart(2, '0');
+            document.getElementById('stats-premium').textContent = `$${totalPremium.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+            const tbody = document.getElementById('policies-tbody');
+            if (tbody) {
+                const activePolicies = proposals.filter(p => p.status === 'ACTIVE');
+                if (activePolicies.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-body-sm text-secondary italic">No active policies found. Apply for coverage to activate.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = activePolicies.map(p => {
+                    const vehicle = vehicles.find(v => v.id === p.vehicleId);
+                    const vehCategory = vehicle ? vehicle.category : 'CAR';
+                    const vehReg = vehicle ? vehicle.registration_number : 'Unknown';
+
+                    let categoryIcon = 'directions_car';
+                    if (vehCategory === 'BIKE') categoryIcon = 'directions_bike';
+                    else if (vehCategory === 'MOTORCYCLE') categoryIcon = 'two_wheeler';
+                    else if (vehCategory === 'TRUCK') categoryIcon = 'local_shipping';
+                    else if (vehCategory === 'CAMPER_VAN') categoryIcon = 'rv_hookup';
+
+                    let statusBadge = `<span class="inline-flex items-center px-2 py-1 border border-black bg-primary text-on-primary text-label-sm uppercase font-bold">Active</span>`;
+
+                    // Actions
+                    let actions = `<a href="proposal_status.html?id=${p.id}" class="text-primary hover:underline font-label-md uppercase mr-4">View</a>`;
+                    actions += `<a href="claim.html?policyId=${p.id}" class="text-primary hover:underline font-label-md uppercase font-bold text-red-600">Raise Claim</a>`;
+
+                    return `
+                    <tr class="hover:bg-surface-bright transition-colors group">
+                        <td class="px-6 py-4 text-body-md font-bold">${p.id}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-[20px]">${categoryIcon}</span>
+                                <span class="text-body-md uppercase">${vehCategory.replace('_', ' ')} (${vehReg})</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-body-md">${p.name}</td>
+                        <td class="px-6 py-4">${statusBadge}</td>
+                        <td class="px-6 py-4 text-body-md text-secondary">${p.startDate || p.submissionDate}</td>
+                        <td class="px-6 py-4 text-body-md text-secondary">${p.endDate || 'N/A'}</td>
+                        <td class="px-6 py-4 text-right">${actions}</td>
+                    </tr>
+                    `;
+                }).join('');
+            }
+        });
+    </script>
+
+<!-- Minimalist Toast Styles & Logic -->
+<style>
+    .minimal-toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #000000;
+        color: #FFFFFF;
+        border: 1px solid #000000;
+        padding: 16px 24px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        transform: translateY(150%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .minimal-toast.show {
+        transform: translateY(0);
+    }
+    .minimal-toast .toast-icon {
+        font-size: 18px;
+    }
+</style>
+<div id="custom-toast" class="minimal-toast">
+    <span class="material-symbols-outlined toast-icon" id="toast-icon">info</span>
+    <span id="toast-text">NOTIFICATION MESSAGE</span>
+</div>
+
+<script>
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('custom-toast');
+        const textSpan = document.getElementById('toast-text');
+        const iconSpan = document.getElementById('toast-icon');
+        
+        // Icon mapping
+        let icon = 'info';
+        if (type === 'success') icon = 'check_circle';
+        if (type === 'error') icon = 'error';
+        if (type === 'warning') icon = 'warning';
+        
+        iconSpan.textContent = icon;
+        textSpan.textContent = message;
+        
+        toast.classList.add('show');
+        
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+</body></html>

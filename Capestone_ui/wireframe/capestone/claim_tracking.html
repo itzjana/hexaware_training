@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoGuard - Claim Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="store.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#5d5e66",
+                      "surface-container-low": "#f3f3f4",
+                      "on-surface": "#1a1c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-surface": "#2f3132",
+                      "outline": "#7e7576",
+                      "primary-container": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "secondary-container": "#e3e1ec",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#4c4546",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-container-high": "#e8e8e9",
+                      "surface-bright": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary": "#000000",
+                      "outline-variant": "#cfc4c5",
+                      "inverse-primary": "#c6c6c6",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#1b1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#63646c",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-variant": "#e2e2e3",
+                      "tertiary-container": "#1b1b1b",
+                      "surface-container": "#eeeeef",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#848484",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "secondary-fixed": "#e3e1ec",
+                      "on-background": "#1a1c1d",
+                      "surface-dim": "#dadadb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "on-primary-container": "#848484",
+                      "background": "#f9f9fa",
+                      "surface-container-highest": "#e2e2e3",
+                      "surface": "#f9f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    
+        // Dynamic Timeline note addition
+        const addNoteBtn = document.querySelector('button.mt-6.w-full');
+        if (addNoteBtn) {
+            addNoteBtn.addEventListener('click', () => {
+                const noteText = prompt("Enter note content for Claim CL-4892-X:");
+                if (noteText) {
+                    const notesContainer = document.querySelector('.flex-1.space-y-6');
+                    const noteElement = document.createElement('div');
+                    noteElement.className = 'p-3 bg-surface-container-low low-fi-border border-l-4 border-l-black';
+                    
+                    const now = new Date();
+                    const timeString = now.toLocaleDateString() + ' @ ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    noteElement.innerHTML = `
+                        <p class="text-body-sm font-body-sm text-secondary mb-1">${timeString} • Policy Holder</p>
+                        <p class="text-body-md font-body-md">${noteText}</p>
+                    `;
+                    notesContainer.insertBefore(noteElement, notesContainer.firstChild);
+                    showToast('Timeline note added successfully!', 'success');
+                }
+            });
+        }
+
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9fa; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .low-fi-border { border: 1px solid #D4D4D8; }
+        .low-fi-active { border: 1px solid #000000; }
+        .timeline-line { width: 1px; background-color: #000000; }
+        .timeline-node { width: 8px; height: 8px; border: 1px solid #000000; background-color: #FFFFFF; }
+        .timeline-node.active { background-color: #000000; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<div id="topnav-container"></div>
+<div id="sidebar-container"></div>
+<!-- Main Content Area -->
+<main class="flex-grow pt-24 pb-12 px-margin-mobile md:pl-72 md:pr-margin-desktop min-h-screen bg-background">
+<div class="max-w-max-width mx-auto" id="claim-tracking-content">
+    <!-- Dynamic Claim Tracking Render -->
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop mt-auto bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline flat no shadows">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-label-md font-label-md font-bold text-primary dark:text-inverse-primary">© 2024 AutoGuard Insurance Systems. All rights reserved.</div>
+<div class="flex gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">Contact Support</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">FAQS</a>
+</div>
+</div>
+<div id="bottomnav-container"></div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation('claims');
+            refreshClaimsView();
+        });
+
+        function refreshClaimsView() {
+            const claims = getClaims();
+            const container = document.getElementById('claim-tracking-content');
+            
+            if (claims.length === 0) {
+                container.innerHTML = `
+                <div class="text-center py-20 bg-white border border-dashed border-outline-variant p-8">
+                    <span class="material-symbols-outlined text-outline-variant text-6xl mb-4">assignment_late</span>
+                    <h3 class="text-headline-sm uppercase mb-2">No Claims Filed</h3>
+                    <p class="text-secondary font-body-md mb-6">You have not submitted any insurance claims yet.</p>
+                    <button onclick="location.href='claim.html'" class="bg-primary text-on-primary font-bold py-3 px-6 uppercase text-label-md tracking-wider border border-primary hover:bg-transparent hover:text-primary transition-colors">File A Claim</button>
+                </div>`;
+                return;
+            }
+
+            // Determine which claim to show (from query parameter or most recent)
+            const urlParams = new URLSearchParams(window.location.search);
+            let claimId = urlParams.get('id');
+            let claim = claims.find(c => c.id === claimId);
+            if (!claim) {
+                claim = claims[claims.length - 1]; // Default to most recent
+                claimId = claim.id;
+            }
+
+            // Status stepper visualization values
+            let step1State = 'border border-black bg-black flex items-center justify-center';
+            let step1Icon = '<span class="material-symbols-outlined text-white text-sm">check</span>';
+            let step2State = 'border border-outline-variant bg-white flex items-center justify-center';
+            let step2Icon = '';
+            let step3State = 'border border-outline-variant bg-white flex items-center justify-center opacity-40';
+            let step4State = 'border border-outline-variant bg-white flex items-center justify-center opacity-40';
+            let step2Opacity = 'opacity-40';
+            let step3Opacity = 'opacity-40';
+            let step4Opacity = 'opacity-40';
+            let progressLineWidth = 'w-0';
+            let bannerDesc = 'Your claim is submitted and awaiting review.';
+
+            if (claim.status === 'INITIATED') {
+                step2State = 'border-2 border-black bg-white flex items-center justify-center';
+                step2Icon = '<div class="w-2 h-2 bg-black"></div>';
+                step2Opacity = '';
+                progressLineWidth = 'w-1/6';
+                bannerDesc = 'Your claim has been submitted. An officer will review it shortly.';
+            } else if (claim.status === 'UNDER_REVIEW') {
+                step2State = 'border border-black bg-black flex items-center justify-center';
+                step2Icon = '<span class="material-symbols-outlined text-white text-sm">check</span>';
+                step2Opacity = '';
+                step3State = 'border-2 border-black bg-white flex items-center justify-center';
+                step3Opacity = '';
+                progressLineWidth = 'w-1/2';
+                bannerDesc = 'An adjuster is currently verifying incident documentation.';
+            } else if (claim.status === 'APPROVED') {
+                step2State = 'border border-black bg-black flex items-center justify-center';
+                step2Icon = '<span class="material-symbols-outlined text-white text-sm">check</span>';
+                step2Opacity = '';
+                step3State = 'border border-black bg-black flex items-center justify-center';
+                step3Opacity = '';
+                progressLineWidth = 'w-full';
+                bannerDesc = 'This claim has been approved. Reimbursement funds have been processed.';
+            } else if (claim.status === 'REJECTED') {
+                step2State = 'border border-black bg-black flex items-center justify-center';
+                step2Icon = '<span class="material-symbols-outlined text-white text-sm">check</span>';
+                step2Opacity = '';
+                step4State = 'border border-red-600 bg-red-600 flex items-center justify-center';
+                step4Opacity = '';
+                progressLineWidth = 'w-full';
+                bannerDesc = 'This claim has been rejected. Refer to officer notes for details.';
+            }
+
+            const formattedDate = new Date(claim.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric'
+            });
+
+            // Map other claims dropdown
+            const otherClaimsOptions = claims.map(c => `
+                <option value="${c.id}" ${c.id === claimId ? 'selected' : ''}>${c.id} (${c.status})</option>
+            `).join('');
+
+            container.innerHTML = `
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <div class="flex items-center gap-4 mb-2">
+                        <h1 class="text-headline-lg font-headline-lg text-primary">Claim #${claim.id}</h1>
+                        <select onchange="window.location.href='claim_tracking.html?id=' + this.value" class="border border-outline-variant bg-white px-2 py-1 font-body-sm text-body-sm">
+                            ${otherClaimsOptions}
+                        </select>
+                    </div>
+                    <p class="text-body-md font-body-md text-secondary">Policy: <span class="font-bold text-primary">${claim.policyId}</span> | Filed on ${formattedDate}</p>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="showToast('Downloading complete claim report PDF...', 'success')" class="px-4 py-2 bg-white border border-black text-black text-label-md font-bold uppercase transition-all hover:bg-surface-container-low">Download Report</button>
+                    <button onclick="location.href='claim.html'" class="px-4 py-2 bg-black text-white text-label-md font-bold uppercase transition-all hover:opacity-90">File Another Claim</button>
+                </div>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                <!-- Claim Status Progress -->
+                <div class="md:col-span-8 bg-white border border-outline-variant p-6">
+                    <h2 class="text-label-md font-label-md text-primary uppercase mb-8">Claim Status</h2>
+                    <div class="relative flex justify-between items-center w-full px-4">
+                        <!-- Connecting Line -->
+                        <div class="absolute h-[1px] bg-outline-variant left-0 right-0 top-1/2 -translate-y-1/2 mx-12 z-0"></div>
+                        <div class="absolute h-[1px] bg-primary left-0 ${progressLineWidth} top-1/2 -translate-y-1/2 mx-12 z-0"></div>
+                        
+                        <!-- Status Points -->
+                        <div class="z-10 flex flex-col items-center gap-3 bg-white px-2">
+                            <div class="w-8 h-8 rounded-none ${step1State}">
+                                ${step1Icon}
+                            </div>
+                            <span class="text-label-sm font-label-sm font-bold uppercase">Initiated</span>
+                        </div>
+                        <div class="z-10 flex flex-col items-center gap-3 bg-white px-2 ${step2Opacity}">
+                            <div class="w-8 h-8 rounded-none ${step2State}">
+                                ${step2Icon}
+                            </div>
+                            <span class="text-label-sm font-label-sm font-bold uppercase">Under Review</span>
+                        </div>
+                        <div class="z-10 flex flex-col items-center gap-3 bg-white px-2 ${step3Opacity}">
+                            <div class="w-8 h-8 rounded-none ${step3State}">
+                                ${claim.status === 'APPROVED' ? '<span class="material-symbols-outlined text-white text-sm">check</span>' : ''}
+                            </div>
+                            <span class="text-label-sm font-label-sm font-bold uppercase">Approved</span>
+                        </div>
+                        <div class="z-10 flex flex-col items-center gap-3 bg-white px-2 ${step4Opacity}">
+                            <div class="w-8 h-8 rounded-none ${step4State}">
+                                ${claim.status === 'REJECTED' ? '<span class="material-symbols-outlined text-white text-sm">close</span>' : ''}
+                            </div>
+                            <span class="text-label-sm font-label-sm font-bold uppercase text-red-600">Rejected</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 p-4 bg-surface-container-low border border-outline-variant border-dashed">
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-secondary">info</span>
+                            <div>
+                                <p class="text-body-md font-body-md font-bold mb-1">Status: ${claim.status.replace('_', ' ')}</p>
+                                <p class="text-body-sm font-body-sm text-secondary">${bannerDesc}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Officer Notes -->
+                <div class="md:col-span-4 bg-white border border-outline-variant p-6 flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-label-md font-label-md text-primary uppercase">Notes Log</h2>
+                        <span class="material-symbols-outlined text-secondary text-sm">edit_note</span>
+                    </div>
+                    <div class="flex-1 space-y-4 overflow-y-auto max-h-[300px] pr-2">
+                        ${claim.notes.map(note => `
+                            <div class="p-3 bg-surface-container-low border border-outline-variant border-l-4 border-l-black">
+                                <p class="text-[11px] text-secondary mb-1">${new Date(note.date).toLocaleString()} • ${note.author}</p>
+                                <p class="text-body-sm font-medium text-primary">${note.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="addUserNote('${claim.id}')" class="mt-6 w-full py-2 border border-black text-label-sm font-bold uppercase transition-colors hover:bg-black hover:text-white">Add Timeline Note</button>
+                </div>
+
+                <!-- Incident Description -->
+                <div class="md:col-span-12 bg-white border border-outline-variant p-6">
+                    <h2 class="text-label-md font-label-md text-primary uppercase mb-4">Incident Description</h2>
+                    <p class="text-body-md text-secondary leading-relaxed bg-surface-container-low p-4 border border-outline-variant">${claim.description}</p>
+                </div>
+
+                <!-- Document Grid -->
+                <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-gutter">
+                    <div class="bg-surface-container-low border border-outline-variant p-4 flex flex-col justify-between aspect-video hover:border-primary transition-colors">
+                        <span class="material-symbols-outlined text-primary mb-4">article</span>
+                        <div>
+                            <p class="text-label-md font-label-md">PoliceReport.pdf</p>
+                            <p class="text-body-sm text-secondary">2.4 MB</p>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low border border-outline-variant p-4 flex flex-col justify-between aspect-video hover:border-primary transition-colors">
+                        <span class="material-symbols-outlined text-primary mb-4">image</span>
+                        <div>
+                            <p class="text-label-md font-label-md">Damage_Assessment_01.jpg</p>
+                            <p class="text-body-sm text-secondary">1.1 MB</p>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low border border-outline-variant p-4 flex flex-col justify-between aspect-video hover:border-primary transition-colors">
+                        <span class="material-symbols-outlined text-primary mb-4">receipt_long</span>
+                        <div>
+                            <p class="text-label-md font-label-md">Repair_Estimate.pdf</p>
+                            <p class="text-body-sm text-secondary">0.5 MB</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-dashed border-black p-4 flex flex-col items-center justify-center aspect-video cursor-pointer hover:bg-surface-container-lowest transition-colors" onclick="showToast('Simulating file upload...', 'success')">
+                        <span class="material-symbols-outlined text-primary mb-2">add_circle</span>
+                        <p class="text-label-sm font-bold uppercase">Upload Documents</p>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function addUserNote(claimId) {
+            const noteText = prompt("Enter a note to add to the Claim timeline:");
+            if (noteText && noteText.trim()) {
+                const claims = getClaims();
+                const claim = claims.find(c => c.id === claimId);
+                if (claim) {
+                    claim.notes.unshift({
+                        date: new Date().toISOString(),
+                        author: "Policy Holder (John Doe)",
+                        text: noteText.trim()
+                    });
+                    saveClaim(claim);
+                    refreshClaimsView();
+                    showToast('Note added to timeline', 'success');
+                }
+            }
+        }
+    </script>
+
+<!-- Minimalist Toast Styles & Logic -->
+<style>
+    .minimal-toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #000000;
+        color: #FFFFFF;
+        border: 1px solid #000000;
+        padding: 16px 24px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        transform: translateY(150%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .minimal-toast.show {
+        transform: translateY(0);
+    }
+    .minimal-toast .toast-icon {
+        font-size: 18px;
+    }
+</style>
+<div id="custom-toast" class="minimal-toast">
+    <span class="material-symbols-outlined toast-icon" id="toast-icon">info</span>
+    <span id="toast-text">NOTIFICATION MESSAGE</span>
+</div>
+
+<script>
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('custom-toast');
+        const textSpan = document.getElementById('toast-text');
+        const iconSpan = document.getElementById('toast-icon');
+        
+        // Icon mapping
+        let icon = 'info';
+        if (type === 'success') icon = 'check_circle';
+        if (type === 'error') icon = 'error';
+        if (type === 'warning') icon = 'warning';
+        
+        iconSpan.textContent = icon;
+        textSpan.textContent = message;
+        
+        toast.classList.add('show');
+        
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+</body></html>

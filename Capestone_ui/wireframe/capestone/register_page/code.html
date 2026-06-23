@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register - AutoGuard Insurance Systems</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#5d5e66",
+                    "surface-container-low": "#f3f3f4",
+                    "on-surface": "#1a1c1d",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#5e5e5e",
+                    "inverse-surface": "#2f3132",
+                    "outline": "#7e7576",
+                    "primary-container": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-container": "#e3e1ec",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#4c4546",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-container-high": "#e8e8e9",
+                    "surface-bright": "#f9f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#1b1b1b",
+                    "primary-fixed": "#e2e2e2",
+                    "on-secondary-container": "#63646c",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "surface-variant": "#e2e2e3",
+                    "tertiary-container": "#1b1b1b",
+                    "surface-container": "#eeeeef",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#848484",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "secondary-fixed": "#e3e1ec",
+                    "on-background": "#1a1c1d",
+                    "surface-dim": "#dadadb",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-primary-container": "#848484",
+                    "background": "#f9f9fa",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface": "#f9f9fa"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-width": "1280px",
+                    "gutter": "16px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9fa;
+        }
+        .form-input {
+            border: 1px solid #D4D4D8;
+            border-radius: 0.25rem;
+            padding: 12px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            border-color: #000000;
+            outline: none;
+        }
+        .error-ring {
+            border-color: #ba1a1a !important;
+        }
+        .placeholder-box {
+            background-image: linear-gradient(45deg, #f4f4f5 25%, transparent 25%, transparent 50%, #f4f4f5 50%, #f4f4f5 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface border-b border-outline-variant">
+<div class="text-headline-md font-black text-primary uppercase">AUTOGUARD</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-label-md font-label-md text-secondary hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-label-md font-label-md text-secondary hover:text-primary transition-colors" href="#">Policies</a>
+<a class="text-label-md font-label-md text-secondary hover:text-primary transition-colors" href="#">Login</a>
+<a class="text-label-md font-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Register</a>
+</nav>
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer text-secondary">notifications</span>
+<span class="material-symbols-outlined cursor-pointer text-secondary">account_circle</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Information Column -->
+<div class="md:col-span-5 flex flex-col justify-center space-y-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg mb-4">Create your account</h1>
+<p class="font-body-lg text-body-lg text-secondary">Join the most reliable vehicle insurance management ecosystem. Secure your assets with precision-engineered coverage.</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-lowest">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div>
+<p class="font-label-md text-label-md">Secure Data Handling</p>
+<p class="font-body-sm text-body-sm text-secondary">Your Aadhaar and PAN details are encrypted using banking-grade security protocols.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-lowest">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<div>
+<p class="font-label-md text-label-md">Instant Approval</p>
+<p class="font-body-sm text-body-sm text-secondary">Real-time verification of your credentials for faster policy issuance.</p>
+</div>
+</div>
+</div>
+<div class="border border-outline-variant h-48 placeholder-box flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<div class="w-full h-px bg-black rotate-12"></div>
+<div class="w-full h-px bg-black -rotate-12"></div>
+</div>
+<span class="material-symbols-outlined text-4xl text-outline opacity-50">directions_car</span>
+</div>
+</div>
+<!-- Registration Form Column -->
+<div class="md:col-span-7">
+<div class="bg-white border border-outline-variant p-6 md:p-10">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6" id="registrationForm">
+<!-- Full Name -->
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md mb-2">FULL NAME</label>
+<input class="form-input font-body-md text-body-md" placeholder="John Doe" required="" type="text"/>
+</div>
+<!-- Email & Username -->
+<div>
+<label class="block font-label-md text-label-md mb-2">EMAIL ADDRESS</label>
+<input class="form-input font-body-md text-body-md" placeholder="john@example.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md mb-2">USERNAME</label>
+<input class="form-input font-body-md text-body-md" placeholder="johndoe88" required="" type="text"/>
+</div>
+<!-- Password Fields -->
+<div>
+<label class="block font-label-md text-label-md mb-2">PASSWORD</label>
+<input class="form-input font-body-md text-body-md" id="password" placeholder="••••••••" required="" type="password"/>
+<p class="text-body-sm text-secondary mt-1">Min. 8 characters</p>
+</div>
+<div>
+<label class="block font-label-md text-label-md mb-2">CONFIRM PASSWORD</label>
+<input class="form-input font-body-md text-body-md" id="confirmPassword" placeholder="••••••••" required="" type="password"/>
+</div>
+<!-- Address -->
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md mb-2">PERMANENT ADDRESS</label>
+<textarea class="form-input font-body-md text-body-md" placeholder="Street, City, State, ZIP" required="" rows="2"></textarea>
+</div>
+<!-- DOB -->
+<div>
+<label class="block font-label-md text-label-md mb-2">DATE OF BIRTH</label>
+<input class="form-input font-body-md text-body-md" required="" type="date"/>
+</div>
+<!-- Government IDs -->
+<div>
+<label class="block font-label-md text-label-md mb-2">AADHAAR NUMBER</label>
+<input class="form-input font-body-md text-body-md" maxlength="12" placeholder="1234 5678 9012" required="" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md mb-2">PAN NUMBER</label>
+<input class="form-input font-body-md text-body-md" maxlength="10" placeholder="ABCDE1234F" required="" type="text"/>
+</div>
+<!-- Validation Message Area -->
+<div class="md:col-span-2 hidden p-3 border border-error text-error text-body-sm flex items-center gap-2" id="validationMessage">
+<span class="material-symbols-outlined text-sm">error</span>
+<span>Passwords do not match. Please try again.</span>
+</div>
+<!-- Submit Button -->
+<div class="md:col-span-2 pt-4">
+<button class="w-full bg-primary text-white py-4 font-label-md text-label-md uppercase hover:opacity-90 transition-opacity" type="submit">
+                                REGISTER ACCOUNT
+                            </button>
+<div class="mt-6 text-center">
+<span class="font-body-md text-body-md text-secondary">Already have an account?</span>
+<a class="font-label-md text-label-md text-primary ml-1 underline uppercase" href="#">Login here</a>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop mt-auto bg-surface-container-low border-t border-outline-variant">
+<div class="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-label-md font-label-md font-bold text-primary">AUTOGUARD</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-primary" href="#">FAQS</a>
+</div>
+<div class="font-body-sm text-body-sm text-secondary text-center md:text-right">
+                © 2024 AutoGuard Insurance Systems. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const validationMsg = document.getElementById('validationMessage');
+
+            if (password !== confirm) {
+                validationMsg.classList.remove('hidden');
+                document.getElementById('confirmPassword').classList.add('error-ring');
+            } else {
+                validationMsg.classList.add('hidden');
+                document.getElementById('confirmPassword').classList.remove('error-ring');
+                alert('Registration submitted for processing.');
+            }
+        });
+
+        // Simple effect: Highlight input labels on focus
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.previousElementSibling.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.previousElementSibling.classList.remove('text-primary');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Proposal Review - AutoGuard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F4F4F5; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#5d5e66",
+                        "surface-container-low": "#f3f3f4",
+                        "on-surface": "#1a1c1d",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#5e5e5e",
+                        "inverse-surface": "#2f3132",
+                        "outline": "#7e7576",
+                        "primary-container": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "secondary-container": "#e3e1ec",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#4c4546",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1a1b22",
+                        "surface-container-high": "#e8e8e9",
+                        "surface-bright": "#f9f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary": "#000000",
+                        "outline-variant": "#cfc4c5",
+                        "inverse-primary": "#c6c6c6",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#1b1b1b",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#63646c",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "surface-variant": "#e2e2e3",
+                        "tertiary-container": "#1b1b1b",
+                        "surface-container": "#eeeeef",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-tertiary-container": "#848484",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "secondary-fixed": "#e3e1ec",
+                        "on-background": "#1a1c1d",
+                        "surface-dim": "#dadadb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-primary-container": "#848484",
+                        "background": "#f9f9fa",
+                        "surface-container-highest": "#e2e2e3",
+                        "surface": "#f9f9fa"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "unit": "4px"
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+<div id="topnav-container"></div>
+<div id="sidebar-container"></div>
+
+<!-- Main Content Canvas -->
+<main class="mt-16 md:ml-64 p-margin-mobile md:p-margin-desktop flex-grow">
+    <div class="max-w-max-width mx-auto">
+        
+        <!-- Page Header -->
+        <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-secondary mb-2">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    <span onclick="location.href='officer_dashboard.html'" class="text-label-md font-label-md cursor-pointer hover:underline uppercase">Back to Queue</span>
+                </div>
+                <h1 class="text-headline-lg font-headline-lg text-primary" id="proposal-title-id">Proposal Review: Loading...</h1>
+                <p class="text-body-md font-body-md text-secondary mt-1" id="proposal-header-sub">Assigned to Underwriting Department</p>
+            </div>
+        </div>
+
+        <!-- Proposal Info Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter" id="main-content-layout">
+            <!-- Left Column: Customer & Vehicle -->
+            <div class="md:col-span-8 space-y-gutter">
+                
+                <!-- Section: Customer Details -->
+                <section class="bg-surface-container-lowest border border-outline-variant p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-headline-sm font-headline-sm text-primary uppercase tracking-tight">Customer Details</h2>
+                        <div class="border border-primary px-2 py-1 text-label-sm font-label-sm uppercase bg-primary text-on-primary">Verified Account</div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12">
+                        <div>
+                            <span class="block text-label-md font-label-md text-secondary mb-1">FULL NAME</span>
+                            <span class="block text-body-lg font-body-lg font-bold">Jonathan Alexander Sterling</span>
+                        </div>
+                        <div>
+                            <span class="block text-label-md font-label-md text-secondary mb-1">LICENSE NUMBER</span>
+                            <span class="block text-body-lg font-body-lg font-bold">DL-TX-9981220</span>
+                        </div>
+                        <div>
+                            <span class="block text-label-md font-label-md text-secondary mb-1">EMAIL ADDRESS</span>
+                            <span class="block text-body-lg font-body-lg">j.sterling@example.com</span>
+                        </div>
+                        <div>
+                            <span class="block text-label-md font-label-md text-secondary mb-1">PHONE NUMBER</span>
+                            <span class="block text-body-lg font-body-lg">+1 (555) 829-0012</span>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <span class="block text-label-md font-label-md text-secondary mb-1">RESIDENTIAL ADDRESS</span>
+                            <span class="block text-body-lg font-body-lg">882 West Oak Boulevard, Austin, TX 78701</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: Vehicle Details -->
+                <section class="bg-surface-container-lowest border border-outline-variant p-6">
+                    <h2 class="text-headline-sm font-headline-sm text-primary uppercase tracking-tight mb-6">Vehicle Details</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="sm:col-span-1">
+                            <div class="aspect-video border border-outline-variant bg-surface-container-low flex items-center justify-center relative overflow-hidden">
+                                <span class="material-symbols-outlined text-outline-variant text-5xl">directions_car</span>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2 grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="block text-label-md font-label-md text-secondary mb-1">VEHICLE CATEGORY</span>
+                                <span class="block text-body-lg font-body-lg font-bold" id="veh-category">-</span>
+                            </div>
+                            <div>
+                                <span class="block text-label-md font-label-md text-secondary mb-1">REGISTRATION NUMBER</span>
+                                <span class="block text-body-md font-body-md font-bold" id="veh-regno">-</span>
+                            </div>
+                            <div>
+                                <span class="block text-label-md font-label-md text-secondary mb-1">MANUFACTURE YEAR</span>
+                                <span class="block text-body-lg font-body-lg font-bold" id="veh-year">-</span>
+                            </div>
+                            <div>
+                                <span class="block text-label-md font-label-md text-secondary mb-1">ESTIMATED ASSET AGE</span>
+                                <span class="block text-body-md font-body-md" id="veh-age">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: Underwriting & Quote Generator Analysis -->
+                <section class="bg-white border border-black p-6">
+                    <h2 class="text-headline-sm font-headline-sm text-primary uppercase tracking-tight mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">analytics</span> Underwriting Premium Analysis
+                    </h2>
+                    <p class="text-body-sm text-secondary mb-6">Calculate quote by evaluating plan type, vehicle category risk, asset age factor, and addons.</p>
+                    
+                    <div class="bg-surface-container-low p-4 border border-outline-variant space-y-3 mb-6">
+                        <div class="flex justify-between items-center text-body-sm">
+                            <span class="text-secondary uppercase">Plan Base Rate (<span id="analysis-plan-name">-</span>)</span>
+                            <span class="font-bold text-primary" id="analysis-base-rate">$0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-body-sm">
+                            <span class="text-secondary uppercase">Category Multiplier (<span id="analysis-cat-name">-</span>)</span>
+                            <span class="font-bold text-primary" id="analysis-cat-multiplier">1.0x</span>
+                        </div>
+                        <div class="flex justify-between items-center text-body-sm">
+                            <span class="text-secondary uppercase">Age Risk Factor (<span id="analysis-age-val">-</span>)</span>
+                            <span class="font-bold text-primary" id="analysis-age-multiplier">1.0x</span>
+                        </div>
+                        <div class="flex justify-between items-center text-body-sm">
+                            <span class="text-secondary uppercase">Selected Addons Summary</span>
+                            <span class="font-bold text-primary" id="analysis-addons-cost">+$0.00</span>
+                        </div>
+                        <div class="h-px bg-outline-variant my-2"></div>
+                        <div class="flex justify-between items-center text-body-md font-bold">
+                            <span class="text-primary uppercase">Calculated Premium Subtotal</span>
+                            <span class="text-primary" id="analysis-subtotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-label-md font-label-md text-secondary uppercase mb-2">Adjust Final Quote Premium ($)</label>
+                            <input id="final-premium-input" type="number" step="0.01" class="w-full bg-white border border-black p-3 font-bold text-body-lg text-primary focus:outline-none focus:ring-0"/>
+                            <p class="text-[11px] text-secondary mt-1">Reviewers can adjust the final pricing if underwriting exceptions are warranted.</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="handleGenerateQuote()" class="flex-1 bg-black text-white py-4 font-bold text-label-md uppercase tracking-wider hover:bg-neutral-800 transition-colors">
+                                Approve & Generate Quote
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Remarks & Actions -->
+            <div class="md:col-span-4 space-y-gutter">
+                <!-- Section: Review Remarks -->
+                <section class="bg-surface-container-lowest border border-outline-variant p-6 sticky top-20">
+                    <h2 class="text-headline-sm font-headline-sm text-primary uppercase tracking-tight mb-6">Underwriting Actions</h2>
+                    
+                    <div class="mb-6">
+                        <label class="block text-label-md font-label-md text-secondary uppercase mb-2">Officer Decision Note</label>
+                        <textarea id="officer-notes-input" class="w-full h-32 p-3 bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-0 text-body-md font-body-md placeholder:text-outline" placeholder="Enter findings, document requests, or rejection rationale here..."></textarea>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="handleRequestMoreInfo()" class="w-full bg-white border border-black text-primary py-3 text-label-md font-label-md uppercase font-bold hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">info</span>
+                            Request Additional Info
+                        </button>
+                        <button onclick="handleRejectProposal()" class="w-full bg-white border border-error text-error py-3 text-label-md font-label-md uppercase font-bold hover:bg-error-container transition-colors flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                            Reject Proposal
+                        </button>
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-outline-variant">
+                        <h3 class="text-label-md font-label-md text-secondary uppercase mb-4">Risk Timeline</h3>
+                        <div class="space-y-6" id="risk-timeline-container">
+                            <!-- Dynamic risk log based on proposal -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop bg-surface-container-low border-t border-outline-variant md:ml-64 mt-12">
+    <div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-label-md font-label-md font-bold text-primary">AUTOGUARD</div>
+        <div class="flex gap-6">
+            <a class="text-secondary hover:text-primary transition-opacity text-label-sm font-label-sm" href="#">Privacy Policy</a>
+            <a class="text-secondary hover:text-primary transition-opacity text-label-sm font-label-sm" href="#">Terms of Service</a>
+            <a class="text-secondary hover:text-primary transition-opacity text-label-sm font-label-sm" href="#">Contact Support</a>
+            <a class="text-secondary hover:text-primary transition-opacity text-label-sm font-label-sm" href="#">FAQS</a>
+        </div>
+        <div class="text-body-sm font-body-sm text-secondary">© 2026 AutoGuard Insurance Systems. All rights reserved.</div>
+    </div>
+</footer>
+
+<!-- Minimalist Toast Styles & Logic -->
+<style>
+    .minimal-toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #000000;
+        color: #FFFFFF;
+        border: 1px solid #000000;
+        padding: 16px 24px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        transform: translateY(150%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .minimal-toast.show {
+        transform: translateY(0);
+    }
+    .minimal-toast .toast-icon {
+        font-size: 18px;
+    }
+</style>
+<div id="custom-toast" class="minimal-toast">
+    <span class="material-symbols-outlined toast-icon" id="toast-icon">info</span>
+    <span id="toast-text">NOTIFICATION MESSAGE</span>
+</div>
+
+<script src="store.js"></script>
+<script>
+    let currentProposal = null;
+
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('custom-toast');
+        const textSpan = document.getElementById('toast-text');
+        const iconSpan = document.getElementById('toast-icon');
+        let icon = 'info';
+        if (type === 'success') icon = 'check_circle';
+        if (type === 'error') icon = 'error';
+        if (type === 'warning') icon = 'warning';
+        iconSpan.textContent = icon;
+        textSpan.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderOfficerNavigation('dashboard');
+        loadProposalDetails();
+    });
+
+    function loadProposalDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const proposalId = urlParams.get('id');
+        
+        if (!proposalId) {
+            alert("No proposal ID specified in parameters!");
+            location.href = 'officer_dashboard.html';
+            return;
+        }
+
+        const proposals = getProposals();
+        currentProposal = proposals.find(p => p.id === proposalId);
+
+        if (!currentProposal) {
+            document.getElementById('proposal-title-id').textContent = "Proposal Not Found";
+            document.getElementById('main-content-layout').innerHTML = `
+            <div class="col-span-12 bg-white border border-outline-variant p-12 text-center">
+                <p class="text-secondary text-body-lg">The specified proposal reference could not be resolved.</p>
+                <button onclick="location.href='officer_dashboard.html'" class="mt-4 bg-primary text-on-primary px-6 py-2 uppercase font-bold">Return to Dashboard</button>
+            </div>`;
+            return;
+        }
+
+        // Header details
+        document.getElementById('proposal-title-id').textContent = `Proposal Review: #${currentProposal.id}`;
+        document.getElementById('proposal-header-sub').textContent = `Submitted on ${currentProposal.submissionDate} • Current Status: ${currentProposal.status}`;
+        
+        // Notes area
+        if (currentProposal.officerRemark) {
+            document.getElementById('officer-notes-input').value = currentProposal.officerRemark;
+        }
+
+        // Load vehicle details
+        const vehicles = getVehicles();
+        const vehicle = vehicles.find(v => v.id === currentProposal.vehicleId) || {
+            category: 'CAR', registration_number: 'Unknown', manufacture_year: new Date().getFullYear()
+        };
+
+        document.getElementById('veh-category').textContent = vehicle.category;
+        document.getElementById('veh-regno').textContent = vehicle.registration_number;
+        document.getElementById('veh-year').textContent = vehicle.manufacture_year;
+        
+        const age = new Date().getFullYear() - vehicle.manufacture_year;
+        document.getElementById('veh-age').textContent = `${age} year${age === 1 ? '' : 's'} old`;
+
+        // Calculate Premium Analysis breakdown
+        let baseRate = 400; // Own Damage
+        if (currentProposal.type === 'Comprehensive Plan') {
+            baseRate = 800;
+        } else if (currentProposal.type === 'Third Party Only') {
+            baseRate = 250;
+        }
+
+        let catMultiplier = 1.0;
+        switch(vehicle.category) {
+            case 'BIKE': catMultiplier = 0.4; break;
+            case 'MOTORCYCLE': catMultiplier = 0.5; break;
+            case 'CAR': catMultiplier = 1.0; break;
+            case 'CAMPER_VAN': catMultiplier = 1.4; break;
+            case 'TRUCK': catMultiplier = 1.9; break;
+        }
+
+        let ageMultiplier = 1.0;
+        if (age > 10) {
+            ageMultiplier = 1.25;
+        } else if (age > 5) {
+            ageMultiplier = 1.1;
+        } else if (age <= 2) {
+            ageMultiplier = 1.05;
+        }
+
+        // Addons cost calculation
+        let addonsCost = 0;
+        if (currentProposal.addons) {
+            currentProposal.addons.forEach(add => {
+                if (add === 'Zero Depreciation') addonsCost += 50;
+                else if (add === 'Roadside Assistance') addonsCost += 30;
+                else if (add === 'Engine Protection') addonsCost += 80;
+                else if (add === 'Personal Accident Cover') addonsCost += 100;
+                else addonsCost += 15; // default addon cost fallback
+            });
+        }
+
+        const calculatedSubtotal = (baseRate * catMultiplier * ageMultiplier) + addonsCost;
+
+        // Populate analysis layout
+        document.getElementById('analysis-plan-name').textContent = currentProposal.type;
+        document.getElementById('analysis-base-rate').textContent = `$${baseRate.toFixed(2)}`;
+        document.getElementById('analysis-cat-name').textContent = vehicle.category;
+        document.getElementById('analysis-cat-multiplier').textContent = `${catMultiplier.toFixed(2)}x`;
+        document.getElementById('analysis-age-val').textContent = `${age} yrs`;
+        document.getElementById('analysis-age-multiplier').textContent = `${ageMultiplier.toFixed(2)}x`;
+        document.getElementById('analysis-addons-cost').textContent = `+$${addonsCost.toFixed(2)}`;
+        document.getElementById('analysis-subtotal').textContent = `$${calculatedSubtotal.toFixed(2)}`;
+
+        // Set default value in input
+        document.getElementById('final-premium-input').value = calculatedSubtotal.toFixed(2);
+
+        // Timeline
+        renderTimeline();
+    }
+
+    function renderTimeline() {
+        const timeline = document.getElementById('risk-timeline-container');
+        let html = `
+        <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+                <div class="w-2 h-2 bg-primary"></div>
+                <div class="w-[1px] h-12 bg-primary"></div>
+            </div>
+            <div>
+                <span class="block text-label-sm font-label-sm font-bold">SUBMISSION</span>
+                <span class="block text-body-sm font-body-sm text-secondary">Customer applied for ${currentProposal.type}</span>
+            </div>
+        </div>`;
+
+        if (currentProposal.status === 'INFORMATION_REQUESTED') {
+            html = `
+            <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                    <div class="w-2 h-2 bg-amber-600"></div>
+                    <div class="w-[1px] h-12 bg-outline-variant"></div>
+                </div>
+                <div>
+                    <span class="block text-label-sm font-label-sm font-bold text-amber-600">INFORMATION REQUESTED</span>
+                    <span class="block text-body-sm font-body-sm text-secondary">Awaiting customer details update</span>
+                </div>
+            </div>` + html;
+        } else if (currentProposal.status === 'QUOTE_GENERATED') {
+            html = `
+            <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                    <div class="w-2 h-2 bg-black"></div>
+                    <div class="w-[1px] h-12 bg-outline-variant"></div>
+                </div>
+                <div>
+                    <span class="block text-label-sm font-label-sm font-bold">QUOTE GENERATED</span>
+                    <span class="block text-body-sm font-body-sm text-secondary">Underwriting quote sent to customer: $${currentProposal.premium.toFixed(2)}</span>
+                </div>
+            </div>` + html;
+        } else if (currentProposal.status === 'REJECTED') {
+            html = `
+            <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                    <div class="w-2 h-2 bg-error"></div>
+                    <div class="w-[1px] h-12 bg-outline-variant"></div>
+                </div>
+                <div>
+                    <span class="block text-label-sm font-label-sm font-bold text-error">PROPOSAL REJECTED</span>
+                    <span class="block text-body-sm font-body-sm text-secondary">Decision: Application declined.</span>
+                </div>
+            </div>` + html;
+        }
+
+        timeline.innerHTML = html + `
+        <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+                <div class="w-2 h-2 border border-outline"></div>
+            </div>
+            <div>
+                <span class="block text-label-sm font-label-sm font-bold text-secondary">PENDING REVIEW</span>
+                <span class="block text-body-sm font-body-sm text-secondary">Waiting for final sign-off</span>
+            </div>
+        </div>`;
+    }
+
+    // ================= ACTIONS =================
+
+    function handleRequestMoreInfo() {
+        const note = document.getElementById('officer-notes-input').value.trim();
+        if (!note) {
+            alert("Please input details of what information or documents are required!");
+            return;
+        }
+
+        currentProposal.status = 'INFORMATION_REQUESTED';
+        currentProposal.officerRemark = note;
+        saveProposal(currentProposal);
+
+        showToast("Additional information request logged. Customer notified.", "warning");
+        setTimeout(() => {
+            location.href = 'officer_dashboard.html';
+        }, 1200);
+    }
+
+    function handleRejectProposal() {
+        const note = document.getElementById('officer-notes-input').value.trim();
+        if (!note) {
+            alert("Please input a reason for declining this proposal!");
+            return;
+        }
+
+        if (confirm("Are you sure you want to REJECT this proposal application?")) {
+            currentProposal.status = 'REJECTED';
+            currentProposal.officerRemark = note;
+            saveProposal(currentProposal);
+
+            showToast("Policy application declined.", "error");
+            setTimeout(() => {
+                location.href = 'officer_dashboard.html';
+            }, 1200);
+        }
+    }
+
+    function handleGenerateQuote() {
+        const adjustedPremium = parseFloat(document.getElementById('final-premium-input').value);
+        if (isNaN(adjustedPremium) || adjustedPremium <= 0) {
+            alert("Please enter a valid premium cost value!");
+            return;
+        }
+
+        const note = document.getElementById('officer-notes-input').value.trim();
+
+        currentProposal.status = 'QUOTE_GENERATED';
+        currentProposal.premium = adjustedPremium;
+        if (note) {
+            currentProposal.officerRemark = note;
+        } else {
+            currentProposal.officerRemark = "Quote generated based on standard automotive risk matrices.";
+        }
+
+        saveProposal(currentProposal);
+
+        showToast("Quote generated successfully. Customer notified for payment Checkout.", "success");
+        setTimeout(() => {
+            location.href = 'officer_dashboard.html';
+        }, 1200);
+    }
+</script>
+</body>
+</html>

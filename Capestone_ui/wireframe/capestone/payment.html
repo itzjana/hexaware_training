@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Success | AutoGuard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="store.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#5d5e66",
+                      "surface-container-low": "#f3f3f4",
+                      "on-surface": "#1a1c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-surface": "#2f3132",
+                      "outline": "#7e7576",
+                      "primary-container": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "secondary-container": "#e3e1ec",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#4c4546",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-container-high": "#e8e8e9",
+                      "surface-bright": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary": "#000000",
+                      "outline-variant": "#cfc4c5",
+                      "inverse-primary": "#c6c6c6",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#1b1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#63646c",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-variant": "#e2e2e3",
+                      "tertiary-container": "#1b1b1b",
+                      "surface-container": "#eeeeef",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#848484",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "secondary-fixed": "#e3e1ec",
+                      "on-background": "#1a1c1d",
+                      "surface-dim": "#dadadb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "on-primary-container": "#848484",
+                      "background": "#f9f9fa",
+                      "surface-container-highest": "#e2e2e3",
+                      "surface": "#f9f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #F4F4F5;
+        }
+        .wireframe-border {
+            border: 1px solid #D4D4D8;
+        }
+        .wireframe-border-active {
+            border: 1px solid #000000;
+        }
+        .placeholder-x {
+            background: linear-gradient(to top left, transparent calc(50% - 1px), #D4D4D8, transparent calc(50% + 1px)),
+                        linear-gradient(to top right, transparent calc(50% - 1px), #D4D4D8, transparent calc(50% + 1px));
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar (Shell Suppression: No, this is a post-transaction summary, but top-level context is useful) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline">
+<div class="text-headline-md font-headline-md font-black text-primary dark:text-inverse-primary uppercase">AutoGuard</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="index.html">Home</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md" href="#">Payments</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="login.html">Policies</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-24 pb-12 px-margin-mobile md:px-margin-desktop flex items-center justify-center">
+<div class="max-w-2xl w-full">
+<!-- Success Hero Card -->
+<div class="bg-white wireframe-border p-8 md:p-12 mb-8 text-center">
+<div class="mb-6 inline-flex items-center justify-center w-16 h-16 bg-primary text-white">
+<span class="material-symbols-outlined text-4xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg mb-2">Payment Successful</h1>
+<p class="text-body-lg font-body-lg text-secondary mb-8">Your transaction has been processed securely.</p>
+<!-- Status & Amount Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+<div class="wireframe-border p-6 bg-surface-container-lowest">
+<p class="text-label-sm font-label-sm text-secondary uppercase mb-1">Amount Paid</p>
+<p id="amount-display" class="text-headline-md font-headline-md">$1,240.00</p>
+<p class="text-body-sm font-body-sm text-secondary mt-2">Visa ending in •••• 4242</p>
+</div>
+<div class="wireframe-border p-6 bg-surface-container-lowest">
+<p class="text-label-sm font-label-sm text-secondary uppercase mb-1">Status</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-block w-3 h-3 bg-primary"></span>
+<span class="text-label-md font-label-md uppercase">CONFIRMED</span>
+</div>
+<p id="ref-display" class="text-body-sm font-body-sm text-secondary mt-2">Ref: #AG-992834-TX</p>
+</div>
+</div>
+</div>
+<!-- Policy Activation Details -->
+<div class="bg-white wireframe-border p-8 mb-8">
+<div class="flex items-start gap-4 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+<div>
+<h2 class="text-headline-sm font-headline-sm">Policy Activated</h2>
+<p id="desc-display" class="text-body-md font-body-md text-secondary">Your comprehensive auto insurance policy is now active.</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant">
+<span class="text-body-md font-body-md">Policy Number</span>
+<span id="policy-number-display" class="text-label-md font-label-md font-bold">POL-8827-XJ</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant">
+<span class="text-body-md font-body-md">Effective Date</span>
+<span id="effective-date-display" class="text-label-md font-label-md">OCT 24, 2024</span>
+</div>
+<div class="flex justify-between items-center py-3">
+<span class="text-body-md font-body-md">Coverage Type</span>
+<span id="coverage-type-display" class="text-label-md font-label-md">PREMIUM COMPREHENSIVE</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col md:flex-row gap-4">
+<button class="flex-1 bg-primary text-white font-label-md text-label-md uppercase py-4 px-6 flex items-center justify-center gap-2 transition-all active:opacity-80">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Download Policy Document
+                </button>
+<button onclick="location.href=\'customer_dashboard.html\'" class="flex-1 bg-white wireframe-border text-primary font-label-md text-label-md uppercase py-4 px-6 transition-all hover:bg-surface-container-high">
+Go to Dashboard
+</button>
+</div>
+<!-- Confirmation Timeline (Micro-interaction style) -->
+<div class="mt-12">
+<p class="text-label-sm font-label-sm text-secondary uppercase mb-6 text-center">Next Steps</p>
+<div class="relative flex justify-between max-w-md mx-auto">
+<!-- Progress Line -->
+<div class="absolute top-[4px] left-0 w-full h-[1px] bg-outline-variant z-0"></div>
+<div class="absolute top-[4px] left-0 w-1/2 h-[1px] bg-primary z-0"></div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-2 h-2 bg-primary border border-primary mb-2"></div>
+<span class="text-[10px] font-label-sm uppercase">Payment</span>
+</div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-2 h-2 bg-primary border border-primary mb-2"></div>
+<span class="text-[10px] font-label-sm uppercase">Activation</span>
+</div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-2 h-2 bg-white border border-outline-variant mb-2"></div>
+<span class="text-[10px] font-label-sm uppercase text-secondary">ID Card Sent</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Standard Shared Component) -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop mt-auto bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-label-md font-label-md font-bold text-primary dark:text-inverse-primary uppercase">AutoGuard</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-opacity font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-opacity font-label-sm text-label-sm" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-opacity font-label-sm text-label-sm" href="#">Contact Support</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-opacity font-label-sm text-label-sm" href="#">FAQS</a>
+</div>
+<p class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim">© 2024 AutoGuard Insurance Systems. All rights reserved.</p>
+</div>
+</footer>
+<!-- Success Animation script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            const proposals = getProposals();
+            const p = proposals.find(item => item.id === id);
+
+            if (p) {
+                // Populate summary card
+                document.getElementById('amount-display').textContent = `$${p.premium.toFixed(2)}`;
+                document.getElementById('ref-display').textContent = `Ref: #${p.id}-TX`;
+                
+                // Populate policy details
+                document.getElementById('policy-number-display').textContent = p.id;
+                document.getElementById('effective-date-display').textContent = p.startDate || new Date().toISOString().split('T')[0];
+                document.getElementById('coverage-type-display').textContent = p.type.toUpperCase();
+                
+                const endVal = p.endDate || new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
+                const endYear = new Date(endVal).getFullYear();
+                document.getElementById('desc-display').textContent = `Your ${p.type.toLowerCase()} policy is now active and valid until Dec ${endYear}.`;
+            }
+            
+            // Mock interaction for download button
+            const downloadBtn = document.querySelector('button');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    downloadBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="refresh">refresh</span> PREPARING...';
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = '<span class="material-symbols-outlined" data-icon="check">check</span> DOWNLOADED';
+                        downloadBtn.style.backgroundColor = '#15803d'; // green-700
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+
+<!-- Minimalist Toast Styles & Logic -->
+<style>
+    .minimal-toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #000000;
+        color: #FFFFFF;
+        border: 1px solid #000000;
+        padding: 16px 24px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        transform: translateY(150%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .minimal-toast.show {
+        transform: translateY(0);
+    }
+    .minimal-toast .toast-icon {
+        font-size: 18px;
+    }
+</style>
+<div id="custom-toast" class="minimal-toast">
+    <span class="material-symbols-outlined toast-icon" id="toast-icon">info</span>
+    <span id="toast-text">NOTIFICATION MESSAGE</span>
+</div>
+
+<script>
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('custom-toast');
+        const textSpan = document.getElementById('toast-text');
+        const iconSpan = document.getElementById('toast-icon');
+        
+        // Icon mapping
+        let icon = 'info';
+        if (type === 'success') icon = 'check_circle';
+        if (type === 'error') icon = 'error';
+        if (type === 'warning') icon = 'warning';
+        
+        iconSpan.textContent = icon;
+        textSpan.textContent = message;
+        
+        toast.classList.add('show');
+        
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+</body></html>

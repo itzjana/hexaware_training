@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoGuard - New Claim Proposal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#5d5e66",
+                        "surface-container-low": "#f3f3f4",
+                        "on-surface": "#1a1c1d",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#5e5e5e",
+                        "inverse-surface": "#2f3132",
+                        "outline": "#7e7576",
+                        "primary-container": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "secondary-container": "#e3e1ec",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#4c4546",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1a1b22",
+                        "surface-container-high": "#e8e8e9",
+                        "surface-bright": "#f9f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary": "#000000",
+                        "outline-variant": "#cfc4c5",
+                        "inverse-primary": "#c6c6c6",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#1b1b1b",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#63646c",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "surface-variant": "#e2e2e3",
+                        "tertiary-container": "#1b1b1b",
+                        "surface-container": "#eeeeef",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-tertiary-container": "#848484",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "secondary-fixed": "#e3e1ec",
+                        "on-background": "#1a1c1d",
+                        "surface-dim": "#dadadb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-primary-container": "#848484",
+                        "background": "#f9f9fa",
+                        "surface-container-highest": "#e2e2e3",
+                        "surface": "#f9f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #F4F4F5;
+            color: #1a1c1d;
+        }
+        .wireframe-border {
+            border: 1px solid #D4D4D8;
+        }
+        .wireframe-active-border {
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md bg-background">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-black text-primary dark:text-inverse-primary uppercase">AutoGuard</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:text-primary transition-colors" href="#">Policies</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md" href="#">Claims</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors" data-icon="account_circle">account_circle</button>
+</div>
+</nav>
+<!-- SideNavBar (Officer Portal Context) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-64 z-40 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flat no shadows">
+<div class="p-6">
+<h2 class="text-headline-sm font-headline-sm font-black text-primary dark:text-inverse-primary">Officer Portal</h2>
+<p class="text-label-sm font-label-sm text-secondary">Claims Department</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>My Policies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary dark:bg-primary-fixed text-on-primary dark:text-on-primary-fixed font-bold font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_late">assignment_late</span>
+<span>Claims</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Payments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-3 font-label-md text-label-md uppercase tracking-wider mb-4 hover:opacity-80 transition-opacity">
+                New Proposal
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary font-label-sm text-label-sm hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary font-label-sm text-label-sm hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-24 pb-12 px-margin-mobile md:px-margin-desktop min-h-screen">
+<div class="max-w-4xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12">
+<div class="flex items-center gap-2 text-secondary mb-4 font-label-sm text-label-sm uppercase tracking-widest">
+<span>Claims</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-bold">New Submission</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">File a New Claim</h1>
+<p class="font-body-md text-body-md text-secondary">Please provide accurate details regarding the incident to expedite your processing.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Form Section -->
+<div class="lg:col-span-2 space-y-8">
+<section class="bg-surface-container-lowest wireframe-border p-8">
+<form class="space-y-6" id="claim-form">
+<!-- Policy Reference -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md uppercase text-primary" for="policy_ref">Policy Reference</label>
+<input class="w-full bg-white wireframe-border px-4 py-3 font-body-md text-body-md focus:outline-none focus:ring-0 focus:border-black placeholder:text-[#A1A1AA]" id="policy_ref" placeholder="e.g., AG-88293-XP" type="text"/>
+</div>
+<!-- Incident Description -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md uppercase text-primary" for="description">Incident Description</label>
+<textarea class="w-full bg-white wireframe-border px-4 py-3 font-body-md text-body-md focus:outline-none focus:ring-0 focus:border-black placeholder:text-[#A1A1AA] resize-none" id="description" placeholder="Describe the incident in detail..." rows="6"></textarea>
+</div>
+<!-- Document Upload -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md uppercase text-primary">Upload Claim Images/Documents</label>
+<div class="wireframe-border border-dashed p-8 text-center bg-surface-container-low hover:bg-surface-variant transition-colors cursor-pointer group" id="dropzone">
+<span class="material-symbols-outlined text-[48px] text-[#A1A1AA] group-hover:text-primary transition-colors" data-icon="cloud_upload">cloud_upload</span>
+<p class="mt-4 font-label-md text-label-md text-secondary">Drag and drop files here or <span class="text-primary underline">browse</span></p>
+<p class="mt-2 text-body-sm font-body-sm text-[#A1A1AA]">PNG, JPG, PDF up to 10MB each</p>
+<input class="hidden" id="file-input" multiple="" type="file"/>
+</div>
+<!-- File List Placeholder -->
+<div class="mt-4 space-y-2 hidden" id="file-preview">
+<!-- Dynamic content here -->
+</div>
+</div>
+<!-- Submit Action -->
+<div class="pt-4 border-t border-outline-variant mt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="text-body-sm font-body-sm">Your data is secured with AES-256 encryption.</span>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-3 wireframe-border bg-white text-primary font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+<button class="flex-1 md:flex-none px-8 py-3 bg-primary text-on-primary font-label-md text-label-md uppercase hover:opacity-80 transition-opacity" type="submit">Submit Claim</button>
+</div>
+</div>
+</form>
+</section>
+</div>
+<!-- Sidebar / Guidance -->
+<div class="space-y-6">
+<section class="bg-white wireframe-border p-6">
+<h3 class="font-label-md text-label-md uppercase text-primary mb-4 border-b border-outline-variant pb-2">Submission Checklist</h3>
+<ul class="space-y-4">
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="check_box_outline_blank">check_box_outline_blank</span>
+<span class="text-body-md font-body-md">Verify policy number is active.</span>
+</li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="check_box_outline_blank">check_box_outline_blank</span>
+<span class="text-body-md font-body-md">Photos showing all angles of damage.</span>
+</li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="check_box_outline_blank">check_box_outline_blank</span>
+<span class="text-body-md font-body-md">Include police report if applicable.</span>
+</li>
+</ul>
+</section>
+<section class="bg-white wireframe-border p-6">
+<h3 class="font-label-md text-label-md uppercase text-primary mb-4 border-b border-outline-variant pb-2">Reference Photo Guide</h3>
+<div class="aspect-video bg-surface-container-high flex items-center justify-center relative overflow-hidden group">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<div class="w-full h-[1px] bg-black rotate-45"></div>
+<div class="w-full h-[1px] bg-black -rotate-45"></div>
+</div>
+<span class="material-symbols-outlined text-[32px] text-secondary" data-icon="image">image</span>
+<div class="absolute bottom-2 right-2">
+<span class="text-[8px] font-label-sm bg-black text-white px-2 py-1">DIAGRAM_01</span>
+</div>
+</div>
+<p class="mt-4 text-body-sm font-body-sm text-secondary italic">Ensure high-contrast lighting for damage assessment documentation.</p>
+</section>
+<section class="bg-primary p-6">
+<h3 class="font-label-md text-label-md uppercase text-on-primary mb-2">Need Help?</h3>
+<p class="text-body-sm font-body-sm text-on-primary/80 mb-4">Our dedicated claim agents are available 24/7 for assistance.</p>
+<button class="w-full py-2 wireframe-border border-white text-on-primary font-label-md text-label-md uppercase hover:bg-white/10 transition-colors">Call 0800-GUARD</button>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline flat no shadows">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<span class="text-label-md font-label-md font-bold text-primary dark:text-inverse-primary uppercase">AutoGuard</span>
+<div class="flex gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-sm font-label-sm hover:text-primary transition-colors" href="#">FAQS</a>
+</div>
+<p class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim text-center md:text-right">
+                © 2024 AutoGuard Insurance Systems. All rights reserved.
+            </p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for the form
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const filePreview = document.getElementById('file-preview');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('bg-surface-variant');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('bg-surface-variant');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('bg-surface-variant');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                filePreview.classList.remove('hidden');
+                filePreview.innerHTML = '';
+                Array.from(files).forEach(file => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center justify-between p-3 bg-white wireframe-border';
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">insert_drive_file</span>
+                            <div>
+                                <p class="text-body-sm font-bold text-primary">${file.name}</p>
+                                <p class="text-[10px] text-secondary">${(file.size / 1024).toFixed(1)} KB</p>
+                            </div>
+                        </div>
+                        <button type="button" class="text-error hover:opacity-70">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    `;
+                    filePreview.appendChild(item);
+                });
+            }
+        }
+
+        // Form Submission Effect
+        document.getElementById('claim-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = 'Processing...';
+            btn.disabled = true;
+            setTimeout(() => {
+                alert('Claim submitted successfully! Your reference number is CLM-55219.');
+                btn.innerHTML = 'Submit Claim';
+                btn.disabled = false;
+            }, 1500);
+        });
+
+        // Simple Checkbox Logic
+        document.querySelectorAll('li.flex.gap-3').forEach(item => {
+            item.addEventListener('click', () => {
+                const icon = item.querySelector('.material-symbols-outlined');
+                if (icon.textContent === 'check_box_outline_blank') {
+                    icon.textContent = 'check_box';
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    item.classList.add('opacity-50');
+                } else {
+                    icon.textContent = 'check_box_outline_blank';
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    item.classList.remove('opacity-50');
+                }
+            });
+            item.classList.add('cursor-pointer');
+        });
+    </script>
+</body></html>

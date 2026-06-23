@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proposal Status | AutoGuard Insurance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9fa;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#5d5e66",
+                      "surface-container-low": "#f3f3f4",
+                      "on-surface": "#1a1c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-surface": "#2f3132",
+                      "outline": "#7e7576",
+                      "primary-container": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "secondary-container": "#e3e1ec",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#4c4546",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-container-high": "#e8e8e9",
+                      "surface-bright": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary": "#000000",
+                      "outline-variant": "#cfc4c5",
+                      "inverse-primary": "#c6c6c6",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#1b1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#63646c",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-variant": "#e2e2e3",
+                      "tertiary-container": "#1b1b1b",
+                      "surface-container": "#eeeeef",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#848484",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "secondary-fixed": "#e3e1ec",
+                      "on-background": "#1a1c1d",
+                      "surface-dim": "#dadadb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "on-primary-container": "#848484",
+                      "background": "#f9f9fa",
+                      "surface-container-highest": "#e2e2e3",
+                      "surface": "#f9f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full z-40 w-64 bg-surface-container-lowest border-r border-outline-variant">
+<div class="p-6">
+<h1 class="text-headline-sm font-headline-sm font-black text-primary uppercase">AutoGuard</h1>
+<p class="text-label-sm font-label-sm text-secondary mt-1">Officer Portal</p>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary font-bold font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined">description</span> My Policies
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">assignment_late</span> Claims
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">payments</span> Payments
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<div class="px-4 py-6 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">help</span> Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-label-md text-label-md hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- TopNavBar (Fixed Top) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:pl-72 md:pr-margin-desktop h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="md:hidden material-symbols-outlined cursor-pointer">menu</span>
+<div class="md:hidden text-headline-md font-headline-md font-black text-primary uppercase">AutoGuard</div>
+<h2 class="hidden md:block text-headline-sm font-headline-sm text-primary">Proposal Overview</h2>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-margin-mobile md:pl-72 md:pr-margin-desktop min-h-screen">
+<!-- Header Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-md font-label-md text-secondary uppercase tracking-wider">Proposal ID:</span>
+<span class="text-label-md font-label-md font-bold text-on-surface">AG-2024-8842-XP</span>
+</div>
+<h1 class="text-headline-md font-headline-md text-on-surface">Comprehensive Auto Shield</h1>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface border border-primary px-4 py-2 text-label-md font-label-md text-primary hover:bg-surface-container-low transition-colors uppercase">
+                    Download PDF
+                </button>
+<button class="bg-primary px-4 py-2 text-label-md font-label-md text-on-primary transition-opacity hover:opacity-90 uppercase">
+                    Submit Query
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Status & Timeline (Bento Style) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Status Progress Indicator -->
+<div class="bg-white border border-outline-variant p-6">
+<h3 class="text-label-md font-label-md text-secondary uppercase mb-6">Workflow Progress</h3>
+<div class="relative flex justify-between">
+<!-- Connecting Line -->
+<div class="absolute top-4 left-0 w-full h-[1px] bg-outline-variant z-0"></div>
+<!-- Step 1: SUBMITTED (Complete) -->
+<div class="relative z-10 flex flex-col items-center text-center w-24">
+<div class="w-8 h-8 bg-primary border border-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">PROPOSAL_SUBMITTED</span>
+</div>
+<!-- Step 2: QUOTE (Complete) -->
+<div class="relative z-10 flex flex-col items-center text-center w-24">
+<div class="w-8 h-8 bg-primary border border-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">QUOTE_GENERATED</span>
+</div>
+<!-- Step 3: VERIFIED (Current) -->
+<div class="relative z-10 flex flex-col items-center text-center w-24">
+<div class="w-8 h-8 bg-white border-2 border-primary flex items-center justify-center mb-2">
+<div class="w-2 h-2 bg-primary"></div>
+</div>
+<span class="text-label-sm font-label-sm font-bold text-on-surface">VERIFIED</span>
+</div>
+<!-- Step 4: ACTIVE (Pending) -->
+<div class="relative z-10 flex flex-col items-center text-center w-24">
+<div class="w-8 h-8 bg-surface-container-low border border-outline-variant flex items-center justify-center mb-2">
+</div>
+<span class="text-label-sm font-label-sm text-secondary">ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Officer Remarks Card -->
+<div class="bg-white border border-outline-variant p-6 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">rate_review</span>
+<h3 class="text-label-md font-label-md text-secondary uppercase">Officer Remarks</h3>
+</div>
+<div class="flex-1">
+<div class="p-4 bg-surface-container-low border-l-4 border-primary">
+<p class="text-body-md font-body-md text-on-surface italic">"Vehicle inspection documents are verified. The VIN matches our database. Awaiting final payment confirmation to trigger policy activation."</p>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full border border-outline-variant bg-surface-variant flex items-center justify-center text-xs font-bold">JD</div>
+<div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">John Doe</p>
+<p class="text-label-sm font-label-sm text-secondary">Senior Underwriter</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Uploaded Documents Card -->
+<div class="bg-white border border-outline-variant p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+<h3 class="text-label-md font-label-md text-secondary uppercase">Uploaded Documents</h3>
+</div>
+<ul class="space-y-3">
+<li class="flex items-center justify-between p-3 border border-outline-variant hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary">description</span>
+<span class="text-body-sm font-body-sm text-on-surface">Vehicle_Registration.pdf</span>
+</div>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">download</span>
+</li>
+<li class="flex items-center justify-between p-3 border border-outline-variant hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary">id_card</span>
+<span class="text-body-sm font-body-sm text-on-surface">Drivers_License_Front.jpg</span>
+</div>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">download</span>
+</li>
+<li class="flex items-center justify-between p-3 border border-outline-variant hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary">photo_camera</span>
+<span class="text-body-sm font-body-sm text-on-surface">Inspection_Photo_Main.png</span>
+</div>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">download</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Asset Visualization Section -->
+<div class="bg-white border border-outline-variant h-64 relative overflow-hidden flex items-center justify-center group">
+<div class="absolute inset-0 bg-surface-container-low opacity-20"></div>
+<!-- Placeholder Visual -->
+<div class="text-center z-10">
+<span class="material-symbols-outlined text-outline-variant text-6xl mb-2">directions_car</span>
+<p class="text-label-md font-label-md text-secondary">VEHICLE PROFILE PREVIEW</p>
+</div>
+<!-- X-Lines for Placeholder Style -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-10">
+<svg class="w-full h-full">
+<line stroke="black" stroke-width="1" x1="0" x2="100%" y1="0" y2="100%"></line>
+<line stroke="black" stroke-width="1" x1="100%" x2="0" y1="0" y2="100%"></line>
+</svg>
+</div>
+</div>
+</div>
+<!-- Right Column: Timeline & Details -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Status Timeline -->
+<div class="bg-white border border-outline-variant p-6">
+<h3 class="text-label-md font-label-md text-secondary uppercase mb-6">Status Timeline</h3>
+<div class="relative ml-2">
+<!-- Vertical Line -->
+<div class="absolute left-[3.5px] top-2 bottom-2 w-[1px] bg-primary"></div>
+<div class="space-y-8">
+<!-- Timeline Item 1 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1.5 w-2 h-2 bg-primary border border-primary"></div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">VERIFIED</p>
+<p class="text-body-sm font-body-sm text-on-surface">Documents successfully validated by backend.</p>
+<p class="text-label-sm font-label-sm text-secondary mt-1">Today, 09:45 AM</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1.5 w-2 h-2 bg-primary border border-primary"></div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">QUOTE_GENERATED</p>
+<p class="text-body-sm font-body-sm text-on-surface">Automated premium calculation completed.</p>
+<p class="text-label-sm font-label-sm text-secondary mt-1">Oct 24, 02:20 PM</p>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1.5 w-2 h-2 bg-primary border border-primary"></div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">PROPOSAL_SUBMITTED</p>
+<p class="text-body-sm font-body-sm text-on-surface">Initial application received via portal.</p>
+<p class="text-label-sm font-label-sm text-secondary mt-1">Oct 23, 11:15 AM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Stats Table -->
+<div class="bg-white border border-outline-variant overflow-hidden">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant">
+<h3 class="text-label-md font-label-md text-secondary uppercase">Policy Summary</h3>
+</div>
+<table class="w-full text-left">
+<tbody class="divide-y divide-outline-variant">
+<tr>
+<td class="px-4 py-3 text-label-sm font-label-sm text-secondary">Annual Premium</td>
+<td class="px-4 py-3 text-body-sm font-body-sm text-on-surface text-right font-bold">$1,240.00</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-label-sm font-label-sm text-secondary">Risk Level</td>
+<td class="px-4 py-3 text-body-sm font-body-sm text-on-surface text-right">
+<span class="inline-block px-2 py-0.5 border border-primary text-[10px] font-bold">LOW</span>
+</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-label-sm font-label-sm text-secondary">Vehicle Year</td>
+<td class="px-4 py-3 text-body-sm font-body-sm text-on-surface text-right">2023</td>
+</tr>
+<tr>
+<td class="px-4 py-3 text-label-sm font-label-sm text-secondary">Agent Assigned</td>
+<td class="px-4 py-3 text-body-sm font-body-sm text-on-surface text-right">M. Thompson</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Action Card -->
+<div class="bg-primary p-6">
+<h4 class="text-on-primary font-bold text-headline-sm mb-2">Ready to Activate?</h4>
+<p class="text-on-primary opacity-80 text-body-sm mb-6">Your quote is verified. Proceed to payment to activate your coverage immediately.</p>
+<button class="w-full bg-white text-primary px-4 py-3 text-label-md font-label-md font-bold uppercase transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                        Complete Payment
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:pl-72 md:pr-margin-desktop mt-auto bg-surface-container-low border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-label-md font-label-md font-bold text-primary uppercase">AutoGuard</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-secondary font-label-sm text-label-sm hover:text-primary transition-opacity underline decoration-primary" href="#">Privacy Policy</a>
+<a class="text-secondary font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="text-secondary font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">Contact Support</a>
+<a class="text-secondary font-label-sm text-label-sm hover:text-primary transition-opacity" href="#">FAQS</a>
+</div>
+<p class="text-body-sm font-body-sm text-secondary text-center md:text-right">
+                © 2024 AutoGuard Insurance Systems. All rights reserved.
+            </p>
+</div>
+</footer>
+<!-- Interactive Layer: FAB (Only relevant for Home/Dashboard, so suppressed here per instructions) -->
+<script>
+        // Micro-interaction for document hover
+        document.querySelectorAll('li').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateX(4px)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0px)';
+            });
+        });
+    </script>
+</body></html>

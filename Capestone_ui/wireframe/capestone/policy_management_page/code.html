@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoGuard - Policy Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#5d5e66",
+                      "surface-container-low": "#f3f3f4",
+                      "on-surface": "#1a1c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-surface": "#2f3132",
+                      "outline": "#7e7576",
+                      "primary-container": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "secondary-container": "#e3e1ec",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#4c4546",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-container-high": "#e8e8e9",
+                      "surface-bright": "#f9f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary": "#000000",
+                      "outline-variant": "#cfc4c5",
+                      "inverse-primary": "#c6c6c6",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#1b1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#63646c",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "surface-variant": "#e2e2e3",
+                      "tertiary-container": "#1b1b1b",
+                      "surface-container": "#eeeeef",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-container": "#848484",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "secondary-fixed": "#e3e1ec",
+                      "on-background": "#1a1c1d",
+                      "surface-dim": "#dadadb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "on-primary-container": "#848484",
+                      "background": "#f9f9fa",
+                      "surface-container-highest": "#e2e2e3",
+                      "surface": "#f9f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F4F4F5;
+            color: #1a1c1d;
+        }
+        .wireframe-border { border: 1px solid #D4D4D8; }
+        .wireframe-border-active { border: 1px solid #000000; }
+        .image-placeholder {
+            background: #F4F4F5;
+            position: relative;
+            overflow: hidden;
+        }
+        .image-placeholder::before, .image-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top right, transparent calc(50% - 1px), #D4D4D8, transparent calc(50% + 1px)),
+                        linear-gradient(to bottom right, transparent calc(50% - 1px), #D4D4D8, transparent calc(50% + 1px));
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface border-b border-outline-variant">
+<div class="text-headline-md font-black text-primary uppercase">AutoGuard</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-lowest border-r border-outline-variant transition-all duration-200 ease-in-out">
+<div class="p-6">
+<div class="text-headline-sm font-black text-primary uppercase mb-1">AutoGuard</div>
+<div class="text-label-sm font-label-sm text-secondary">Officer Portal</div>
+</div>
+<div class="flex-grow py-4">
+<a class="flex items-center gap-3 px-6 py-3 text-secondary hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-primary text-on-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-label-md font-label-md">My Policies</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-secondary hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_late">assignment_late</span>
+<span class="text-label-md font-label-md">Claims</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-secondary hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-label-md font-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-secondary hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+<div class="p-6 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-3 font-bold text-label-md uppercase transition-opacity hover:opacity-90">
+                New Proposal
+            </button>
+<div class="mt-6 flex flex-col gap-2">
+<a class="flex items-center gap-3 text-secondary text-label-md hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span> Support
+                </a>
+<a class="flex items-center gap-3 text-secondary text-label-md hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow md:pl-64 pt-16 md:pt-0">
+<div class="max-w-max-width mx-auto p-margin-mobile md:p-margin-desktop">
+<header class="mb-8">
+<h1 class="font-headline-lg text-headline-lg mb-2">Policy Management</h1>
+<p class="text-secondary font-body-md">Define, modify, and track automotive insurance policies within the system.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Add/Edit Form -->
+<div class="lg:col-span-4 bg-white wireframe-border p-6 sticky top-8">
+<h2 class="font-headline-sm text-headline-sm mb-6 uppercase tracking-wider">Configure Policy</h2>
+<form class="space-y-6" id="policy-form">
+<div>
+<label class="block text-label-md font-label-md uppercase mb-2">Policy Name</label>
+<input class="w-full wireframe-border px-4 py-3 focus:outline-none focus:ring-0 focus:border-black placeholder-[#A1A1AA] bg-white" placeholder="e.g. Comprehensive Prime" type="text"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md uppercase mb-2">Description</label>
+<textarea class="w-full wireframe-border px-4 py-3 focus:outline-none focus:ring-0 focus:border-black placeholder-[#A1A1AA] bg-white" placeholder="Policy coverage details..." rows="3"></textarea>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md uppercase mb-2">Base Rate ($)</label>
+<input class="w-full wireframe-border px-4 py-3 focus:outline-none focus:ring-0 focus:border-black placeholder-[#A1A1AA] bg-white" placeholder="0.00" type="number"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md uppercase mb-2">Risk Level</label>
+<select class="w-full wireframe-border px-4 py-3 focus:outline-none focus:ring-0 focus:border-black bg-white">
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md uppercase mb-2">Add-ons</label>
+<div class="space-y-2">
+<label class="flex items-center gap-3 p-3 wireframe-border cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 border-black rounded-none focus:ring-0 text-black" type="checkbox"/>
+<span class="text-body-md">Roadside Assistance</span>
+</label>
+<label class="flex items-center gap-3 p-3 wireframe-border cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 border-black rounded-none focus:ring-0 text-black" type="checkbox"/>
+<span class="text-body-md">Rental Reimbursement</span>
+</label>
+<label class="flex items-center gap-3 p-3 wireframe-border cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 border-black rounded-none focus:ring-0 text-black" type="checkbox"/>
+<span class="text-body-md">Glass Protection</span>
+</label>
+</div>
+</div>
+<div class="pt-4 flex flex-col gap-3">
+<button class="w-full bg-primary text-on-primary py-4 font-bold uppercase tracking-widest text-label-md" type="submit">
+                                Save Policy
+                            </button>
+<button class="w-full bg-white border border-black text-black py-4 font-bold uppercase tracking-widest text-label-md" type="reset">
+                                Reset Form
+                            </button>
+</div>
+</form>
+</div>
+<!-- Right Column: Policy List -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Search & Filter Bar -->
+<div class="bg-white wireframe-border p-4 flex flex-col md:flex-row gap-4 items-center">
+<div class="relative flex-grow w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary" data-icon="search">search</span>
+<input class="w-full wireframe-border pl-10 pr-4 py-2 focus:outline-none focus:border-black" placeholder="Search policies..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto">
+<button class="flex items-center gap-2 px-4 py-2 wireframe-border bg-white text-label-md uppercase font-bold hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span> Filter
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 wireframe-border bg-white text-label-md uppercase font-bold hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="download">download</span> Export
+                            </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-white wireframe-border overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b wireframe-border">
+<tr>
+<th class="px-6 py-4 text-label-md font-label-md uppercase tracking-wider">Policy Detail</th>
+<th class="px-6 py-4 text-label-md font-label-md uppercase tracking-wider">Rate</th>
+<th class="px-6 py-4 text-label-md font-label-md uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-label-md font-label-md uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-body-lg">Essential Shield</div>
+<div class="text-body-sm text-secondary truncate max-w-xs">Basic liability coverage for standard vehicles.</div>
+</td>
+<td class="px-6 py-4">
+<div class="font-bold">$120.00</div>
+<div class="text-label-sm text-secondary">per month</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-black text-white text-label-sm font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 wireframe-border hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 wireframe-border hover:bg-error hover:text-white hover:border-error transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-body-lg">Premium Fleet</div>
+<div class="text-body-sm text-secondary truncate max-w-xs">Multi-car discount package for high-value clients.</div>
+</td>
+<td class="px-6 py-4">
+<div class="font-bold">$450.00</div>
+<div class="text-label-sm text-secondary">per month</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 wireframe-border text-black text-label-sm font-bold uppercase">Draft</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 wireframe-border hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 wireframe-border hover:bg-error hover:text-white hover:border-error transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-body-lg">Student Starter</div>
+<div class="text-body-sm text-secondary truncate max-w-xs">Reduced premium for college students with good grades.</div>
+</td>
+<td class="px-6 py-4">
+<div class="font-bold">$85.00</div>
+<div class="text-label-sm text-secondary">per month</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-black text-white text-label-sm font-bold uppercase">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 wireframe-border hover:bg-black hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 wireframe-border hover:bg-error hover:text-white hover:border-error transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 bg-surface-container-low flex justify-between items-center">
+<span class="text-label-md text-secondary">Showing 3 of 24 Policies</span>
+<div class="flex gap-2">
+<button class="px-4 py-2 wireframe-border bg-white text-label-md uppercase font-bold opacity-50 cursor-not-allowed">Prev</button>
+<button class="px-4 py-2 wireframe-border bg-white text-label-md uppercase font-bold hover:bg-surface-container-high">Next</button>
+</div>
+</div>
+</div>
+<!-- Placeholder Visual / Information Graphics -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-white wireframe-border p-6 h-64 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="text-label-md font-bold uppercase mb-4 z-10">Risk Distribution Chart</div>
+<div class="w-40 h-40 border-8 border-black rounded-full flex items-center justify-center z-10">
+<span class="font-headline-md">70%</span>
+</div>
+<!-- Decorative wireframe lines -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-full image-placeholder"></div>
+</div>
+</div>
+<div class="bg-white wireframe-border p-6 h-64 flex flex-col justify-end gap-4 overflow-hidden relative">
+<div class="z-10">
+<div class="text-label-md font-bold uppercase mb-2">Growth Projection</div>
+<div class="flex items-end gap-2 h-32">
+<div class="bg-black w-full h-1/4"></div>
+<div class="bg-black w-full h-1/2"></div>
+<div class="bg-black w-full h-1/3"></div>
+<div class="bg-black w-full h-3/4"></div>
+<div class="bg-black w-full h-full"></div>
+</div>
+</div>
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-full image-placeholder"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-mobile md:px-margin-desktop mt-auto bg-surface-container-low border-t border-outline-variant">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-label-md font-bold text-primary uppercase">AutoGuard</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-secondary text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary text-label-sm font-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="text-secondary text-label-sm font-label-sm hover:text-primary transition-colors" href="#">FAQS</a>
+</div>
+<div class="text-body-sm font-body-sm text-secondary">
+                © 2024 AutoGuard Insurance Systems. All rights reserved.
+            </div>
+</div>
+</footer>
+<!-- FAB for Mobile (Semantic context: Add New Policy) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Simple micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.opacity = '0.7';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.opacity = '1';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.opacity = '1';
+            });
+        });
+
+        // Form reset handler
+        const form = document.getElementById('policy-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Policy Data Saved (Simulation)');
+        });
+    </script>
+</body></html>
