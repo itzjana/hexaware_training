@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import axios from 'axios';
 
+// id: 1, name: "test1", additionalCost: 1, description: "teste", status: true
+
 export default function AddonForm() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function AddonForm() {
     const [name, setName] = useState()
     const [description, setDescription] = useState()
     const [cost, setCost] = useState()
-    const [active,setActive] = useState()
+    const [status, setStatus] = useState(false)
 
     const config = {
         headers: {
@@ -33,7 +35,7 @@ export default function AddonForm() {
                 setName(res.data.name)
                 setDescription(res.data.description)
                 setCost(res.data.additionalCost)
-                setActive(res.data.active)
+                setStatus(res.data.status)
             }
         } catch (error) {
             console.error(error);
@@ -55,8 +57,8 @@ export default function AddonForm() {
             id: isEditMode ? parseInt(id) : undefined,
             name: name.trim(),
             description: description.trim(),
-            additionalCost: cost,
-            active: active
+            additionalCost: parseFloat(cost),
+            active: Boolean(status)
         };
 
         try {
@@ -148,12 +150,13 @@ export default function AddonForm() {
                                 <div className="form-check form-switch">
                                     <input
                                         className="form-check-input"
+                                        id="addonActiveToggle"
                                         type="checkbox"
-                                        checked={active}
-                                        onChange={(e) => setActive(e.target.checked)}
+                                        checked={Boolean(status)}
+                                        onChange={(e) => setStatus(e.target.checked)}
                                     />
-                                    <label className="form-check-label">
-                                        {active ? 'Active' : 'Inactive'}
+                                    <label className="form-check-label" htmlFor="addonActiveToggle">
+                                        {status ? 'Active' : 'Inactive'}
                                     </label>
                                 </div>
                             </div>

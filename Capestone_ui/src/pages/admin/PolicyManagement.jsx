@@ -12,6 +12,7 @@ export default function PolicyManagement() {
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState()
     const [pageSize, setPageSize] = useState(1)
+    const [confirmDelete, setConfirmDelete] = useState(null); // holds policy id pending delete
 
     const arr = Array.from({ length: totalPages })
 
@@ -37,18 +38,21 @@ export default function PolicyManagement() {
         loadData();
     }, [currentPage]);
 
-    const handlePolicyDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this policy template?")) {
-            try {
-                // Delete from backend API
-                await axios.delete(`http://localhost:8080/api/insurance/delete/${id}`, config);
-                showToast("Policy template deleted successfully.", "success");
-            } catch (error) {
-                console.warn("Backend delete not supported or failed, removing locally.", error);
-            }
-            showToast("Policy template removed.", "error");
-            loadData();
+    const handlePolicyDelete = (id) => {
+        setConfirmDelete(id);
+    };
+
+    const confirmPolicyDelete = async () => {
+        const id = confirmDelete;
+        setConfirmDelete(null);
+        try {
+            await axios.delete(`http://localhost:8080/api/insurance/delete/${id}`, config);
+            showToast("Policy template deleted successfully.", "success");
+        } catch (error) {
+            console.warn("Backend delete not supported or failed, removing locally.", error);
+            showToast("Policy template removed.", "warning");
         }
+        loadData();
     };
 
     return (
@@ -66,6 +70,51 @@ export default function PolicyManagement() {
                     <span>Add Policy</span>
                 </button>
             </header>
+
+            {/* Inline Confirm Delete Toast */}
+            {confirmDelete !== null && (
+                <div
+                    className="position-fixed bottom-0 end-0 p-4"
+                    style={{ zIndex: 1080 }}
+                >
+                    <div
+                        className="toast show align-items-start shadow-lg border-0"
+                        style={{ minWidth: '320px', background: '#fff', borderRadius: '12px' }}
+                        role="alert"
+                        aria-live="assertive"
+                    >
+                        <div className="toast-header border-0 pb-0" style={{ background: 'transparent' }}>
+                            <i className="bi bi-exclamation-triangle-fill text-danger me-2 fs-5"></i>
+                            <strong className="me-auto text-danger">Confirm Delete</strong>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                onClick={() => setConfirmDelete(null)}
+                                aria-label="Cancel"
+                            ></button>
+                        </div>
+                        <div className="toast-body pt-1">
+                            <p className="mb-3 text-secondary small">
+                                Are you sure you want to delete this policy template? This action cannot be undone.
+                            </p>
+                            <div className="d-flex gap-2 justify-content-end">
+                                <button
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => setConfirmDelete(null)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-danger"
+                                    onClick={confirmPolicyDelete}
+                                >
+                                    <i className="bi bi-trash me-1"></i>Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Policy List */}
             <div className="bg-white border rounded-3 shadow-sm overflow-hidden p-4">

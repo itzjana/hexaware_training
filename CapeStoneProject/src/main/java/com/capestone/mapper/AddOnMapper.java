@@ -36,7 +36,8 @@ public class AddOnMapper {
                 addOn.getId(),
                 addOn.getName(),
                 addOn.getAdditionalCost(),
-                addOn.getDescription()
+                addOn.getDescription(),
+                addOn.getActive()
         );
     }
 }

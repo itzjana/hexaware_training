@@ -6,6 +6,7 @@ public record AddOnSummaryDTO(
         int id,
         String name,
         BigDecimal additionalCost,
-        String description
+        String description,
+        boolean status
 ) {
 }

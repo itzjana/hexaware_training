@@ -52,7 +52,9 @@ public class PolicyProposalMapper {
                                             .map(addOn -> new AddOnSummaryDTO(
                                                     addOn.getPolicyAddOn().getId(),
                                             addOn.getPolicyAddOn().getName(),
-                                            addOn.getPolicyAddOn().getAdditionalCost(), addOn.getPolicyAddOn().getDescription()))
+                                            addOn.getPolicyAddOn().getAdditionalCost(),
+                                                    addOn.getPolicyAddOn().getDescription()
+                                            ,addOn.getPolicyAddOn().getActive()))
                                             .toList();
 
 

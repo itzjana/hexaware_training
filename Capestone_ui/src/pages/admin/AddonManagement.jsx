@@ -9,6 +9,7 @@ export default function AddonManagement() {
 
     // Addons state
     const [addons, setAddons] = useState([]);
+    const [confirmDelete, setConfirmDelete] = useState(null); // holds addon id pending delete
     const api = 'http://localhost:8080/api/addon/all';
 
     const config = {
@@ -30,19 +31,21 @@ export default function AddonManagement() {
         loadData();
     }, []);
 
-    const handleAddonDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this addon template? This will remove it from future package selections.")) {
-            try {
-                // Delete from backend API
-                await axios.delete(`http://localhost:8080/api/addon/delete/${id}`, config);
-                showToast("Addon template deleted successfully.", "success");
-            } catch (error) {
-                console.warn("Backend delete not supported or failed, removing locally.", error);
-            }
-            
-            showToast("Addon template removed.", "error");
-            loadData();
+    const handleAddonDelete = (id) => {
+        setConfirmDelete(id);
+    };
+
+    const confirmAddonDelete = async () => {
+        const id = confirmDelete;
+        setConfirmDelete(null);
+        try {
+            await axios.delete(`http://localhost:8080/api/addon/delete/${id}`, config);
+            showToast("Addon template deleted successfully.", "success");
+        } catch (error) {
+            console.warn("Backend delete not supported or failed, removing locally.", error);
+            showToast("Addon template removed.", "warning");
         }
+        loadData();
     };
 
     return (
@@ -60,6 +63,51 @@ export default function AddonManagement() {
                     <span>Add Addon</span>
                 </button>
             </header>
+
+            {/* Inline Confirm Delete Toast */}
+            {confirmDelete !== null && (
+                <div
+                    className="position-fixed bottom-0 end-0 p-4"
+                    style={{ zIndex: 1080 }}
+                >
+                    <div
+                        className="toast show align-items-start shadow-lg border-0"
+                        style={{ minWidth: '320px', background: '#fff', borderRadius: '12px' }}
+                        role="alert"
+                        aria-live="assertive"
+                    >
+                        <div className="toast-header border-0 pb-0" style={{ background: 'transparent' }}>
+                            <i className="bi bi-exclamation-triangle-fill text-danger me-2 fs-5"></i>
+                            <strong className="me-auto text-danger">Confirm Delete</strong>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                onClick={() => setConfirmDelete(null)}
+                                aria-label="Cancel"
+                            ></button>
+                        </div>
+                        <div className="toast-body pt-1">
+                            <p className="mb-3 text-secondary small">
+                                Are you sure you want to delete this addon template? This will remove it from future package selections.
+                            </p>
+                            <div className="d-flex gap-2 justify-content-end">
+                                <button
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => setConfirmDelete(null)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-danger"
+                                    onClick={confirmAddonDelete}
+                                >
+                                    <i className="bi bi-trash me-1"></i>Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Addon List */}
             <div className="bg-white border rounded-3 shadow-sm overflow-hidden p-4">
@@ -82,7 +130,7 @@ export default function AddonManagement() {
                                     </td>
                                 </tr>
                             ) : (
-                                addons.map((a,index) => (
+                                addons.map((a, index) => (
                                     <tr key={index}>
                                         <td className="fw-bold text-dark">{a.name}</td>
                                         <td className="text-secondary" style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -91,7 +139,11 @@ export default function AddonManagement() {
                                         <td className="fw-bold text-primary">
                                             ₹{a.additionalCost ? a.additionalCost.toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '0.00'}
                                         </td>
-                                        <td>{a.active ? 'Active' : 'Inactive'}</td>
+                                        <td>
+                                            <span className={`badge px-2 py-1 ${a.status ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-danger-subtle text-danger border border-danger-subtle'} text-uppercase`} style={{ fontSize: '0.65rem' }}>
+                                                {a.status ? 'Active' : 'Inactive'}
+                                            </span>
+                                        </td>
                                         <td className="text-end">
                                             <div className="d-inline-flex gap-2">
                                                 <button onClick={() => navigate(`/admin/addons/${a.id}/edit`)} className="btn btn-sm btn-outline-secondary" title="Edit">
