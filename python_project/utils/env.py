@@ -6,7 +6,7 @@ load_dotenv()
 class Env:
     # Database Settings
     DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT")
+    DB_PORT = int(os.getenv("DB_PORT"))
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     DB_NAME = os.getenv("DB_NAME")
@@ -14,8 +14,8 @@ class Env:
     # Security Settings
     JWT_SECRET = os.getenv("JWT_SECRET")
     JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
-    JWT_EXPIRATION_HOURS = os.getenv("JWT_EXPIRATION_HOURS")
-    BCRYPT_ROUNDS = os.getenv("BCRYPT_ROUNDS")
+    JWT_EXPIRATION_HOURS = int(os.getenv("JWT_EXPIRATION_HOURS"))
+    BCRYPT_ROUNDS = int(os.getenv("BCRYPT_ROUNDS"))
 
     # File Storage Settings
     FILE_UPLOAD_DIR = os.getenv("FILE_UPLOAD_DIR")
