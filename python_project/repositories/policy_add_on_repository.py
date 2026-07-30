@@ -88,17 +88,22 @@ class PolicyAddOnRepository:
         finally:
             conn.close()
 
-    def soft_delete(self, addon_id):
+    def toggle_active(self, addon_id):
         conn = get_connection()
         if not conn:
-            return False
+            return None
         try:
-            cursor = conn.cursor()
-            cursor.execute("UPDATE policy_add_on SET active = 0 WHERE id = %s", (addon_id,))
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT active FROM policy_add_on WHERE id = %s", (addon_id,))
+            res = cursor.fetchone()
+            if res is None:
+                return None
+            new_active = 0 if res['active'] else 1
+            cursor.execute("UPDATE policy_add_on SET active = %s WHERE id = %s", (new_active, addon_id))
             conn.commit()
-            return cursor.rowcount > 0
+            return bool(new_active)
         except Exception as exception:
-            log_error(f"Soft delete PolicyAddOn failed: {exception}")
-            return False
+            log_error(f"Toggle PolicyAddOn active status failed: {exception}")
+            return None
         finally:
             conn.close()

@@ -2,6 +2,7 @@ from controllers.auth_controller import AuthController
 from controllers.admin_controller import AdminController
 from controllers.customer_controller import CustomerController
 from controllers.officer_controller import OfficerController
+from controllers.claim_controller import ClaimController
 from repositories.customer_repository import CustomerRepository
 from repositories.officer_repository import OfficerRepository
 from enums import Role, JobTitle, VehicleCategory, FuelType, VehicleUsage
@@ -10,6 +11,7 @@ auth_controller = AuthController()
 admin_controller = AdminController()
 customer_controller = CustomerController()
 officer_controller = OfficerController()
+claim_controller = ClaimController()
 customer_repo = CustomerRepository()
 officer_repo = OfficerRepository()
 CURRENT_USER = None
@@ -67,10 +69,10 @@ def handle_admin_dashboard():
         print(f"   ADMIN DASHBOARD - WELCOME {CURRENT_USER.username.upper()}")
         print(f"=========================================")
         print("1. Create Insurance Policy")
-        print("2. Deactivate (Soft Delete) Insurance Policy")
+        print("2. Toggle Insurance Policy Status (Active/Inactive)")
         print("3. View Insurance Policies")
         print("4. Create Policy Add-On")
-        print("5. Deactivate (Soft Delete) Policy Add-On")
+        print("5. Toggle Policy Add-On Status (Active/Inactive)")
         print("6. View Policy Add-Ons")
         print("7. Onboard (Register) Insurance Officer")
         print("8. Logout")
@@ -121,9 +123,9 @@ def handle_admin_dashboard():
                     )
 
                 case 2:
-                    print("\n--- Deactivate (Soft Delete) Insurance Policy ---")
-                    policy_id = int(input("Enter Policy ID to deactivate: "))
-                    admin_controller.soft_delete_insurance_policy(policy_id)
+                    print("\n--- Toggle Insurance Policy Status (Active/Inactive) ---")
+                    policy_id = int(input("Enter Policy ID to toggle: "))
+                    admin_controller.toggle_insurance_policy_status(policy_id)
 
                 case 3:
                     print("\n--- View Insurance Policies ---")
@@ -145,9 +147,9 @@ def handle_admin_dashboard():
                     admin_controller.create_policy_add_on(name, description, cost)
 
                 case 5:
-                    print("\n--- Deactivate (Soft Delete) Policy Add-On ---")
-                    addon_id = int(input("Enter Add-On ID to deactivate: "))
-                    admin_controller.soft_delete_policy_add_on(addon_id)
+                    print("\n--- Toggle Policy Add-On Status (Active/Inactive) ---")
+                    addon_id = int(input("Enter Add-On ID to toggle: "))
+                    admin_controller.toggle_policy_add_on_status(addon_id)
 
                 case 6:
                     print("\n--- View Policy Add-Ons ---")
@@ -216,7 +218,8 @@ def handle_customer_dashboard():
         print("4. View Active Add-Ons")
         print("5. Initiate Policy Proposal")
         print("6. View My Proposals")
-        print("7. Logout")
+        print("7. View / Manage My Claims")
+        print("8. Logout")
 
         try:
             choice = int(input("Enter choice: "))
@@ -349,6 +352,69 @@ def handle_customer_dashboard():
                                 customer_controller.cancel_proposal(prop_id, customer.id)
 
                 case 7:
+                    print("\n--- My Claims ---")
+                    claims = claim_controller.list_my_claims(customer.id)
+                    if not claims:
+                        print("No claims found.")
+                    else:
+                        print(f"\n{'ID':<5}| {'Proposal ID':<13}| {'Status':<15}| {'Est Amount':<12}| {'Offered':<12}| {'Incident Description'}")
+                        print("-" * 90)
+                        for c in claims:
+                            print(f"{c.id:<5}| {c.policy_proposal_id:<13}| {c.status:<15}| ₹{c.estimated_amount:<11.2f}| ₹{c.offered_amount:<11.2f}| {c.incident_description}")
+
+                    print("\n--- Claim Actions ---")
+                    print("1. Raise New Claim (on Active Policy)")
+                    print("2. Accept Claim Offer")
+                    print("3. Reject Claim Offer")
+                    print("4. Go Back")
+                    try:
+                        action = int(input("Enter choice: "))
+                        if action == 1:
+                            proposals = customer_controller.list_my_proposals(customer.id)
+                            active_props = [p for p in proposals if p.status == "ACTIVE"]
+                            if not active_props:
+                                print("\nYou have no active policies/proposals to claim against.")
+                            else:
+                                print(f"\n{'ID':<5}| {'Policy':<22}| {'Vehicle':<15}")
+                                print("-" * 50)
+                                for p in active_props:
+                                    policy = customer_controller.get_policy_by_id(p.policy_id)
+                                    policy_name = policy.policy_name if policy else "N/A"
+                                    vehicle = customer_controller.customer_service.get_vehicle_by_id(p.vehicle_id)
+                                    vehicle_info = vehicle.registration_number if vehicle else "N/A"
+                                    print(f"{p.id:<5}| {policy_name:<22}| {vehicle_info:<15}")
+
+                                prop_id = int(input("\nEnter Proposal ID to raise claim: "))
+                                if prop_id not in [p.id for p in active_props]:
+                                    print("\n[ERROR] Invalid active proposal ID.")
+                                else:
+                                    desc = input("Enter incident description: ").strip()
+                                    est_amount = float(input("Enter estimated claim amount: "))
+                                    claim_controller.raise_claim(customer.id, prop_id, desc, est_amount)
+                        elif action == 2:
+                            offered_claims = [c for c in claims if c.status == "OFFERED"]
+                            if not offered_claims:
+                                print("\nNo claims currently have an active offer.")
+                            else:
+                                claim_id = int(input("Enter Claim ID to accept: "))
+                                if claim_id not in [c.id for c in offered_claims]:
+                                    print("\n[ERROR] Invalid Claim ID or claim is not in OFFERED status.")
+                                else:
+                                    claim_controller.respond_to_offer(claim_id, customer.id, accept=True)
+                        elif action == 3:
+                            offered_claims = [c for c in claims if c.status == "OFFERED"]
+                            if not offered_claims:
+                                print("\nNo claims currently have an active offer.")
+                            else:
+                                claim_id = int(input("Enter Claim ID to reject: "))
+                                if claim_id not in [c.id for c in offered_claims]:
+                                    print("\n[ERROR] Invalid Claim ID or claim is not in OFFERED status.")
+                                else:
+                                    claim_controller.respond_to_offer(claim_id, customer.id, accept=False)
+                    except ValueError:
+                        print("[ERROR] Invalid choice input.")
+
+                case 8:
                     auth_controller.logout(CURRENT_USER.email)
                     CURRENT_USER = None
                     print("\nLogout successful.")
@@ -379,7 +445,9 @@ def handle_officer_dashboard():
         print(f"=========================================")
         print("1. Initiated Proposals (Give Quote)")
         print("2. My Proposals (Handled by Me)")
-        print("3. Logout")
+        print("3. Initiated Claims (Give Claim Offer)")
+        print("4. My Claims (Handled by Me)")
+        print("5. Logout")
 
         try:
             choice = int(input("Enter choice: "))
@@ -469,6 +537,55 @@ def handle_officer_dashboard():
                         print(f"{prop.id:<5}| {cust_name:<20}| {vehicle_info:<15}| {policy_name:<22}| {prop.status}")
 
                 case 3:
+                    print("\n--- Initiated Claims (Status: SUBMITTED) ---")
+                    claims = claim_controller.list_submitted_claims()
+                    if not claims:
+                        print("No initiated claims found.")
+                        continue
+
+                    print(f"\n{'ID':<5}| {'Proposal ID':<13}| {'Est Amount':<12}| {'Description'}")
+                    print("-" * 50)
+                    for c in claims:
+                        print(f"{c.id:<5}| {c.policy_proposal_id:<13}| ₹{c.estimated_amount:<11.2f}| {c.incident_description}")
+
+                    claim_id_input = input("\nEnter Claim ID to give offer (or press Enter to go back): ").strip()
+                    if not claim_id_input:
+                        continue
+                    try:
+                        claim_id = int(claim_id_input)
+                        claim = claim_controller.get_claim_details(claim_id)
+                        if not claim or claim.status != "SUBMITTED":
+                            print("\n[ERROR] Invalid Claim ID or claim is not in SUBMITTED status.")
+                            continue
+
+                        suggested, elapsed, total_days, total_paid = claim_controller.get_suggested_offer(claim_id)
+                        print(f"\n--- Claim Details (ID: {claim.id}) ---")
+                        print(f"Proposal ID   : {claim.policy_proposal_id}")
+                        print(f"Est. Amount   : ₹{claim.estimated_amount:.2f}")
+                        print(f"Description   : {claim.incident_description}")
+                        print(f"\n>>> System Suggested Offer: ₹{suggested:.2f}")
+                        print(f"    (Calculated based on {elapsed} days elapsed out of {total_days} total days, for paid premium of ₹{total_paid:.2f})")
+
+                        amount = float(input("\nEnter Offered Amount (or 0 to skip): "))
+                        if amount <= 0:
+                            print("Offer skipped.")
+                            continue
+                        claim_controller.submit_claim_offer(claim_id, officer.id, amount)
+                    except ValueError:
+                        print("[ERROR] Invalid numeric input.")
+
+                case 4:
+                    print("\n--- My Claims (Handled by Me) ---")
+                    claims = claim_controller.list_my_claims_officer(officer.id)
+                    if not claims:
+                        print("No claims handled by you yet.")
+                        continue
+                    print(f"\n{'ID':<5}| {'Proposal ID':<13}| {'Status':<15}| {'Offered Amount':<15}")
+                    print("-" * 55)
+                    for c in claims:
+                        print(f"{c.id:<5}| {c.policy_proposal_id:<13}| {c.status:<15}| ₹{c.offered_amount:<14.2f}")
+
+                case 5:
                     auth_controller.logout(CURRENT_USER.email)
                     CURRENT_USER = None
                     print("\nLogout successful.")

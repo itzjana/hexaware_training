@@ -6,6 +6,7 @@ from repositories.policy_add_on_repository import PolicyAddOnRepository
 from repositories.vehicle_repository import VehicleRepository
 from repositories.policy_proposal_repository import PolicyProposalRepository
 from repositories.quote_repository import QuoteRepository
+from repositories.claim_repository import ClaimRepository
 
 __all__ = [
     "UserRepository",
@@ -16,4 +17,5 @@ __all__ = [
     "VehicleRepository",
     "PolicyProposalRepository",
     "QuoteRepository",
+    "ClaimRepository",
 ]

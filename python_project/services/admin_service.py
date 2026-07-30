@@ -29,13 +29,13 @@ class AdminService:
     def list_insurance_policies(self, include_inactive=False):
         return self.policy_repo.find_all(include_inactive)
 
-    def soft_delete_insurance_policy(self, policy_id):
-        success = self.policy_repo.soft_delete(policy_id)
-        if success:
-            log_info(f"Insurance policy soft deleted: {policy_id}")
+    def toggle_insurance_policy_status(self, policy_id):
+        new_status = self.policy_repo.toggle_active(policy_id)
+        if new_status is not None:
+            log_info(f"Insurance policy status toggled to {new_status}: {policy_id}")
         else:
-            log_error(f"Failed to soft delete insurance policy: {policy_id}")
-        return success
+            log_error(f"Failed to toggle insurance policy status: {policy_id}")
+        return new_status
 
     def create_policy_add_on(self, name, description, additional_cost):
         addon = PolicyAddOn(
@@ -53,10 +53,10 @@ class AdminService:
     def list_policy_add_ons(self, include_inactive=False):
         return self.addon_repo.find_all(include_inactive)
 
-    def soft_delete_policy_add_on(self, addon_id):
-        success = self.addon_repo.soft_delete(addon_id)
-        if success:
-            log_info(f"Policy Add-On soft deleted: {addon_id}")
+    def toggle_policy_add_on_status(self, addon_id):
+        new_status = self.addon_repo.toggle_active(addon_id)
+        if new_status is not None:
+            log_info(f"Policy Add-On status toggled to {new_status}: {addon_id}")
         else:
-            log_error(f"Failed to soft delete policy add-on: {addon_id}")
-        return success
+            log_error(f"Failed to toggle policy add-on status: {addon_id}")
+        return new_status

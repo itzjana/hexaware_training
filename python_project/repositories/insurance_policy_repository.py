@@ -99,17 +99,22 @@ class InsurancePolicyRepository:
         finally:
             conn.close()
 
-    def soft_delete(self, policy_id):
+    def toggle_active(self, policy_id):
         conn = get_connection()
         if not conn:
-            return False
+            return None
         try:
-            cursor = conn.cursor()
-            cursor.execute("UPDATE insurance_policy SET active = 0 WHERE id = %s", (policy_id,))
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT active FROM insurance_policy WHERE id = %s", (policy_id,))
+            res = cursor.fetchone()
+            if res is None:
+                return None
+            new_active = 0 if res['active'] else 1
+            cursor.execute("UPDATE insurance_policy SET active = %s WHERE id = %s", (new_active, policy_id))
             conn.commit()
-            return cursor.rowcount > 0
+            return bool(new_active)
         except Exception as exception:
-            log_error(f"Soft delete InsurancePolicy failed: {exception}")
-            return False
+            log_error(f"Toggle InsurancePolicy active status failed: {exception}")
+            return None
         finally:
             conn.close()

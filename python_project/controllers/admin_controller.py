@@ -30,15 +30,17 @@ class AdminController:
 
     @check_authentication
     @role_allowed("ADMIN")
-    def soft_delete_insurance_policy(self, policy_id):
+    def toggle_insurance_policy_status(self, policy_id):
         try:
-            if self.admin_service.soft_delete_insurance_policy(policy_id):
-                print(f"\nSUCCESS: Insurance Policy ID {policy_id} deactivated (soft deleted).")
+            new_status = self.admin_service.toggle_insurance_policy_status(policy_id)
+            if new_status is not None:
+                status_str = "activated" if new_status else "deactivated"
+                print(f"\nSUCCESS: Insurance Policy ID {policy_id} is now {status_str}.")
                 return True
             else:
-                print(f"\nERROR: Policy ID {policy_id} not found or already inactive.")
+                print(f"\nERROR: Policy ID {policy_id} not found.")
         except Exception as exception:
-            print(f"\nERROR: Failed to delete Insurance Policy: {exception}")
+            print(f"\nERROR: Failed to toggle status of Insurance Policy: {exception}")
         return False
 
     @check_authentication
@@ -64,13 +66,15 @@ class AdminController:
 
     @check_authentication
     @role_allowed("ADMIN")
-    def soft_delete_policy_add_on(self, addon_id):
+    def toggle_policy_add_on_status(self, addon_id):
         try:
-            if self.admin_service.soft_delete_policy_add_on(addon_id):
-                print(f"\nSUCCESS: Policy Add-On ID {addon_id} deactivated (soft deleted).")
+            new_status = self.admin_service.toggle_policy_add_on_status(addon_id)
+            if new_status is not None:
+                status_str = "activated" if new_status else "deactivated"
+                print(f"\nSUCCESS: Policy Add-On ID {addon_id} is now {status_str}.")
                 return True
             else:
-                print(f"\nERROR: Policy Add-On ID {addon_id} not found or already inactive.")
+                print(f"\nERROR: Policy Add-On ID {addon_id} not found.")
         except Exception as exception:
-            print(f"\nERROR: Failed to delete Policy Add-On: {exception}")
+            print(f"\nERROR: Failed to toggle status of Policy Add-On: {exception}")
         return False
