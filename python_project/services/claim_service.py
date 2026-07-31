@@ -3,6 +3,10 @@ from repositories.policy_proposal_repository import PolicyProposalRepository
 from repositories.quote_repository import QuoteRepository
 from models.claim import Claim
 from enums import ClaimStatus, PolicyStatus
+from exceptions import (
+    ProposalNotFoundError, UnauthorizedProposalError,
+    ClaimNotFoundError, UnauthorizedClaimError
+)
 from utils.logger import log_info, log_error
 from datetime import datetime
 
@@ -16,9 +20,9 @@ class ClaimService:
         # 1. Verify the proposal exists and belongs to the customer
         proposal = self.proposal_repo.find_by_id(proposal_id)
         if not proposal:
-            raise ValueError("Proposal not found.")
+            raise ProposalNotFoundError(proposal_id)
         if proposal.customer_id != customer_id:
-            raise ValueError("Proposal does not belong to you.")
+            raise UnauthorizedProposalError()
 
         # 2. Verify the proposal is active
         if proposal.status != PolicyStatus.ACTIVE.value:
@@ -60,7 +64,7 @@ class ClaimService:
         """
         claim = self.claim_repo.find_by_id(claim_id)
         if not claim:
-            raise ValueError("Claim not found.")
+            raise ClaimNotFoundError(claim_id)
 
         proposal = self.proposal_repo.find_by_id(claim.policy_proposal_id)
         if not proposal or not proposal.start_date:
@@ -102,7 +106,7 @@ class ClaimService:
     def submit_claim_offer(self, claim_id, officer_id, offered_amount):
         claim = self.claim_repo.find_by_id(claim_id)
         if not claim:
-            raise ValueError("Claim not found.")
+            raise ClaimNotFoundError(claim_id)
         if claim.status != ClaimStatus.SUBMITTED.value:
             raise ValueError(f"Claim is not in SUBMITTED status. Current status: {claim.status}")
 
@@ -118,12 +122,12 @@ class ClaimService:
     def respond_to_offer(self, claim_id, customer_id, accept=True):
         claim = self.claim_repo.find_by_id(claim_id)
         if not claim:
-            raise ValueError("Claim not found.")
+            raise ClaimNotFoundError(claim_id)
 
         # Verify proposal belongs to customer
         proposal = self.proposal_repo.find_by_id(claim.policy_proposal_id)
         if not proposal or proposal.customer_id != customer_id:
-            raise ValueError("Claim does not belong to you.")
+            raise UnauthorizedClaimError()
 
         if claim.status != ClaimStatus.OFFERED.value:
             raise ValueError(f"Claim is not in OFFERED status. Current status: {claim.status}")

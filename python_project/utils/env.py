@@ -16,10 +16,6 @@ class Env:
     JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
     JWT_EXPIRATION_HOURS = int(os.getenv("JWT_EXPIRATION_HOURS"))
     BCRYPT_ROUNDS = int(os.getenv("BCRYPT_ROUNDS"))
-
-    # File Storage Settings
-    FILE_UPLOAD_DIR = os.getenv("FILE_UPLOAD_DIR")
-    FILE_UPLOAD_PUBLIC_DIR = os.getenv("FILE_UPLOAD_PUBLIC_DIR")
-
+    
     # Business Settings
     OFFICER_TEMP_PASSWORD = os.getenv("OFFICER_TEMP_PASSWORD")

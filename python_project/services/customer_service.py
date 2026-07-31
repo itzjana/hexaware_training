@@ -8,6 +8,10 @@ from models.vehicle import Vehicle
 from models.policy_proposal import PolicyProposal
 from models.payment import Payment
 from enums import PolicyStatus, PaymentStatus
+from exceptions import (
+    VehicleNotFoundError, UnauthorizedVehicleError,
+    ProposalNotFoundError, UnauthorizedProposalError
+)
 from utils.logger import log_info, log_error
 from utils.db import get_connection
 from datetime import datetime
@@ -55,8 +59,10 @@ class CustomerService:
     def initiate_proposal(self, customer_id, vehicle_id, policy_id, add_on_ids=None):
         # Verify the vehicle belongs to the customer
         vehicle = self.vehicle_repo.find_by_id(vehicle_id)
-        if not vehicle or vehicle.customer_id != customer_id:
-            raise ValueError("Vehicle not found or does not belong to you.")
+        if not vehicle:
+            raise VehicleNotFoundError(vehicle_id)
+        if vehicle.customer_id != customer_id:
+            raise UnauthorizedVehicleError()
 
         # Verify the policy exists and is active
         policy = self.policy_repo.find_by_id(policy_id)
@@ -102,7 +108,7 @@ class CustomerService:
         """Make payment for a quoted proposal, updating proposal status to ACTIVE."""
         proposal = self.proposal_repo.find_by_id(proposal_id)
         if not proposal:
-            raise ValueError("Proposal not found.")
+            raise ProposalNotFoundError(proposal_id)
         if proposal.status != PolicyStatus.QUOTE_GENERATED.value:
             raise ValueError("Proposal is not in QUOTE_GENERATED status.")
 
@@ -146,9 +152,9 @@ class CustomerService:
         """Cancel a proposal that is in QUOTE_GENERATED status."""
         proposal = self.proposal_repo.find_by_id(proposal_id)
         if not proposal:
-            raise ValueError("Proposal not found.")
+            raise ProposalNotFoundError(proposal_id)
         if proposal.customer_id != customer_id:
-            raise ValueError("This proposal does not belong to you.")
+            raise UnauthorizedProposalError()
         if proposal.status != PolicyStatus.QUOTE_GENERATED.value:
             raise ValueError("Only proposals with QUOTE_GENERATED status can be cancelled.")
 

@@ -7,6 +7,7 @@ from models.user import User
 from models.customer import Customer
 from models.officer import Officer
 from enums import Role
+from exceptions import DuplicateUsernameError, DuplicateEmailError
 from utils.logger import log_info, log_warning, log_error
 from utils.password_util import hash_password, verify_password
 from utils.jwt_util import generate_token, decode_token
@@ -28,9 +29,9 @@ class AuthService:
 
     def admin_signup(self, username, email, password):
         if self.check_username_exists(username):
-            raise ValueError("Username taken, try different")
+            raise DuplicateUsernameError(username)
         if self.check_email_exists(email):
-            raise ValueError("Email already exists.")
+            raise DuplicateEmailError(email)
 
         hashed_pwd = hash_password(password)
         new_user = User(None, username, email, hashed_pwd, Role.ADMIN.value)
@@ -42,9 +43,9 @@ class AuthService:
 
     def officer_signup(self, username, email, name, job_title):
         if self.check_username_exists(username):
-            raise ValueError("Username taken, try different")
+            raise DuplicateUsernameError(username)
         if self.check_email_exists(email):
-            raise ValueError("Email already exists.")
+            raise DuplicateEmailError(email)
 
         # Hash temp password from environment
         temp_password = Env.OFFICER_TEMP_PASSWORD
@@ -63,9 +64,9 @@ class AuthService:
 
     def customer_signup(self, username, email, password, name, dob, address, aadhar_number, pan_number):
         if self.check_username_exists(username):
-            raise ValueError("Username taken, try different")
+            raise DuplicateUsernameError(username)
         if self.check_email_exists(email):
-            raise ValueError("Email already exists.")
+            raise DuplicateEmailError(email)
 
         hashed_pwd = hash_password(password)
         new_user = User(None, username, email, hashed_pwd, Role.CUSTOMER.value)

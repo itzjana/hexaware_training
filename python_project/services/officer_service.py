@@ -6,6 +6,7 @@ from repositories.policy_add_on_repository import PolicyAddOnRepository
 from repositories.customer_repository import CustomerRepository
 from models.quote import Quote
 from enums import PolicyStatus
+from exceptions import ProposalNotFoundError
 from utils.logger import log_info, log_error
 from utils.db import get_connection
 from datetime import datetime
@@ -120,7 +121,7 @@ class OfficerService:
         """
         proposal = self.proposal_repo.find_by_id(proposal_id)
         if not proposal:
-            raise ValueError("Proposal not found.")
+            raise ProposalNotFoundError(proposal_id)
         if proposal.status != PolicyStatus.PROPOSAL_SUBMITTED.value:
             raise ValueError("Proposal is not in PROPOSAL_SUBMITTED status.")
 
